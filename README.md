@@ -2,6 +2,8 @@
 
 A produce inventory tool to count and scan backstock in a produce department.
 
+[Download Latest Version 1.0.7](https://github.com/michaelneumaier/Produce-Inventory/raw/main/order_guide1.0.7.apk)
+
 ## How to use
 
 ### Create Inventory
