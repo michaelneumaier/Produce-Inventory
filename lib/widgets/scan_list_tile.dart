@@ -42,75 +42,104 @@ class ScanListTile extends StatelessWidget {
     log(isOrganic.toString());
 
     //print(countDouble.toString());
-    return Container(
-      color: index % 2 == 0
-          ? isOrganic
-              ? Colors.lightGreen[100]
-              : Colors.grey[100]
-          : isOrganic
-              ? Colors.lightGreen[200]
-              : Colors.blueGrey[50],
-      child: Center(
-        child: Column(
-          //mainAxisSize: MainAxisSize.max,
-          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  countString,
-                  style: const TextStyle(fontSize: 50),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Wrap(
-                  children: [
-                    isOrganic
-                        ? const Text(
-                            'Organic',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          )
-                        : const Text(''),
-                    Text(
-                      product['name'],
-                      style: const TextStyle(fontSize: 40),
-                    ),
-                  ],
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  direction: Axis.vertical,
-                ),
-              ),
-            ),
-            Expanded(
-                flex: 2,
-                child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: generateBarcode(
-                      product['upc'],
-                    ))),
-            //const Expanded(child: SizedBox(height: 50)),
-            Expanded(
-              flex: 1,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                padding: EdgeInsets.all(10),
-                //color: Colors.white,
-                child: Text(
-                  '$index of $itemCount',
-                  style: const TextStyle(fontSize: 30),
-                ),
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: index % 2 == 0
+                ? isOrganic
+                    ? Colors.lightGreen.shade300
+                    : Colors.blueGrey.shade300
+                : isOrganic
+                    ? Colors.lightGreen.shade200
+                    : Colors.blueGrey.shade200,
+            width: 5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blueGrey.shade200,
+              blurRadius: 10,
             )
           ],
+          color: index % 2 == 0
+              ? isOrganic
+                  ? Colors.lightGreen[100]
+                  : Colors.blueGrey[100]
+              : isOrganic
+                  ? Colors.lightGreen[50]
+                  : Colors.blueGrey[50],
+        ),
+        // color: index % 2 == 0
+        //     ? isOrganic
+        //         ? Colors.lightGreen[100]
+        //         : Colors.grey[100]
+        //     : isOrganic
+        //         ? Colors.lightGreen[200]
+        //         : Colors.blueGrey[50],
+        child: Center(
+          child: Column(
+            //mainAxisSize: MainAxisSize.max,
+            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    countString,
+                    style: const TextStyle(fontSize: 50),
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    children: [
+                      isOrganic
+                          ? const Text(
+                              'Organic',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            )
+                          : const Text(''),
+                      Text(
+                        product['name'],
+                        style: const TextStyle(fontSize: 40),
+                      ),
+                    ],
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    direction: Axis.vertical,
+                  ),
+                ),
+              ),
+              Expanded(
+                  flex: 2,
+                  child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: generateBarcode(
+                        product['upc'],
+                      ))),
+              //const Expanded(child: SizedBox(height: 50)),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.all(10),
+                  //color: Colors.white,
+                  child: Text(
+                    '$index of $itemCount',
+                    style: const TextStyle(fontSize: 30),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

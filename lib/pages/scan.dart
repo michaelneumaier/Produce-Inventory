@@ -10,18 +10,18 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
-  late List products;
+  // late List products;
 
-  @override
-  void initState() {
-    super.initState();
-    InventoryData().readProducts().then((value) => products = value);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   InventoryData().readProducts().then((value) => products = value);
+  // }
 
-  readProducts() {
-    InventoryData().readProducts().then((value) => products = value);
-    return products;
-  }
+  // readProducts() {
+  //   InventoryData().readProducts().then((value) => products = value);
+  //   return products;
+  // }
 
   @override
   Widget build(BuildContext context) {

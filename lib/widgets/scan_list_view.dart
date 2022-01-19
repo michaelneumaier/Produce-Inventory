@@ -57,11 +57,30 @@ class _ScanListViewState extends State<ScanListView> {
                     )
                   : PageView.builder(
                       itemBuilder: (BuildContext context, index) {
+                        if (index == itemCount) {
+                          return Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text('Finished Scanning!',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                  )),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Icon(
+                                Icons.done_all_sharp,
+                                size: 40,
+                              )
+                            ],
+                          ));
+                        }
                         return ScanListTile(
                             _products[index], index + 1, itemCount);
                       },
                       scrollDirection: Axis.vertical,
-                      itemCount: itemCount,
+                      itemCount: itemCount + 1,
                       allowImplicitScrolling: false,
                     )
               // ? ListView.builder(
