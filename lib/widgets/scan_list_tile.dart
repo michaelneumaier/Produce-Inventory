@@ -52,37 +52,63 @@ class ScanListTile extends StatelessWidget {
               : Colors.blueGrey[50],
       child: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //mainAxisSize: MainAxisSize.max,
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(
-              countString,
-              style: const TextStyle(fontSize: 50),
-              textAlign: TextAlign.end,
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  countString,
+                  style: const TextStyle(fontSize: 50),
+                  textAlign: TextAlign.end,
+                ),
+              ),
             ),
-            Wrap(
-              children: [
-                isOrganic
-                    ? const Text(
-                        'Organic',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )
-                    : const Text(''),
-                Text(
-                  product['name'],
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  children: [
+                    isOrganic
+                        ? const Text(
+                            'Organic',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          )
+                        : const Text(''),
+                    Text(
+                      product['name'],
+                      style: const TextStyle(fontSize: 40),
+                    ),
+                  ],
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  direction: Axis.vertical,
+                ),
+              ),
+            ),
+            Expanded(
+                flex: 2,
+                child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: generateBarcode(
+                      product['upc'],
+                    ))),
+            //const Expanded(child: SizedBox(height: 50)),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.all(10),
+                //color: Colors.white,
+                child: Text(
+                  '$index of $itemCount',
                   style: const TextStyle(fontSize: 30),
                 ),
-              ],
-              crossAxisAlignment: WrapCrossAlignment.center,
-              direction: Axis.vertical,
-            ),
-            const SizedBox(height: 50),
-            generateBarcode(product['upc']),
-            Text(
-              '$index of $itemCount',
-              style: const TextStyle(fontSize: 30),
+              ),
             )
           ],
         ),

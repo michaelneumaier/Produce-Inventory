@@ -330,12 +330,20 @@ class _ProductsListViewState extends State<ProductsListView> {
                                   spacing: -10,
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   children: [
-                                    EditProductWidget(
-                                      refresh: widget.refresh,
-                                      id: product.id,
-                                      products: widget.snapshot.data,
-                                      parentContext: context,
-                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/edit-product',
+                                              arguments: {
+                                                'id': product.id,
+                                                'refresh': widget.refresh,
+                                                'setEditProducts':
+                                                    setEditProductsBool,
+                                                'setCategory': categoryFilter
+                                              }).whenComplete(
+                                              () => setEditProductsBool(true));
+                                        },
+                                        icon: const Icon(Icons.edit)),
                                     IconButton(
                                       onPressed: () => showDialog(
                                           context: context,
@@ -550,42 +558,45 @@ class _ProductsListViewState extends State<ProductsListView> {
                                           ),
                                           Expanded(
                                             flex: 6,
-                                            child: Wrap(
-                                              spacing: -10,
-                                              alignment: WrapAlignment.end,
-                                              crossAxisAlignment:
-                                                  WrapCrossAlignment.center,
-                                              children: [
-                                                PlusMinusButton(
+                                            child: FittedBox(
+                                              fit: BoxFit.contain,
+                                              child: Wrap(
+                                                spacing: -10,
+                                                alignment: WrapAlignment.end,
+                                                crossAxisAlignment:
+                                                    WrapCrossAlignment.center,
+                                                children: [
+                                                  PlusMinusButton(
+                                                      widget: widget,
+                                                      index: index,
+                                                      delta: Delta.half),
+                                                  PlusMinusButton(
                                                     widget: widget,
                                                     index: index,
-                                                    delta: Delta.half),
-                                                PlusMinusButton(
-                                                  widget: widget,
-                                                  index: index,
-                                                  delta: Delta.minus,
-                                                ),
-                                                SizedBox(
-                                                  width: 30,
-                                                  child: FittedBox(
-                                                    fit: BoxFit.scaleDown,
-                                                    //width: 34,
-                                                    child: Text(
-                                                      product.getCount,
-                                                      //widget.snapshot.data[index]["count"].toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: const TextStyle(
-                                                          fontSize: 24),
+                                                    delta: Delta.minus,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 30,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.scaleDown,
+                                                      //width: 34,
+                                                      child: Text(
+                                                        product.getCount,
+                                                        //widget.snapshot.data[index]["count"].toString(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: const TextStyle(
+                                                            fontSize: 24),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                PlusMinusButton(
-                                                  widget: widget,
-                                                  index: index,
-                                                  delta: Delta.plus,
-                                                ),
-                                              ],
+                                                  PlusMinusButton(
+                                                    widget: widget,
+                                                    index: index,
+                                                    delta: Delta.plus,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ],

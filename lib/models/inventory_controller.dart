@@ -81,8 +81,8 @@ Future<void> writeData(String fileToWrite) async {
   await _jsonFile.writeAsString(fileToWrite);
 }
 
-Future<void> updateProduct(
-    int id, String category, String name, String upc, Function? refresh) async {
+Future<void> updateProduct(int id, String category, String name, String upc,
+    Function? refresh, String? setCategory) async {
   final _readJson = await readJson();
   _products = _readJson['products'];
   final currentProductIndex =
@@ -91,9 +91,9 @@ Future<void> updateProduct(
   _products[currentProductIndex]['category'] = category;
   _products[currentProductIndex]['name'] = name;
   _products[currentProductIndex]['upc'] = upc;
-
+  _products[currentProductIndex]['image'] = '';
   writeJson(_products);
-  refresh!();
+  refresh!(true, true, setCategory);
 }
 
 void writeJson(List products) {

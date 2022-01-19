@@ -153,6 +153,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                 //autovalidateMode: AutovalidateMode.always,
                 child: Column(
                   children: [
+                    const Text('Add Product',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
                     FormBuilderTextField(
                       name: 'name',
                       decoration: const InputDecoration(labelText: 'Name'),
@@ -161,9 +164,10 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                       ]),
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: FormBuilderTextField(
                             controller: upcController,
                             name: 'upc',
@@ -181,18 +185,24 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         ),
                         Expanded(
                           flex: 1,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                scanBarcodeNormal().then((value) {
-                                  setState(() {
-                                    upcController.text = '';
-                                    upcController.text = value;
-                                    //_formKey.currentState?.value['upc'] = value;
-                                    //scannedBarcode = value;
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  scanBarcodeNormal().then((value) {
+                                    setState(() {
+                                      upcController.text = '';
+                                      if (value != '-1') {
+                                        upcController.text = value;
+                                      }
+
+                                      //_formKey.currentState?.value['upc'] = value;
+                                      //scannedBarcode = value;
+                                    });
                                   });
-                                });
-                              },
-                              child: const Text('Scan Barcode')),
+                                },
+                                child: const Text('Scan Barcode')),
+                          ),
                         )
                       ],
                     ),
@@ -218,6 +228,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                   children: [
                                     SizedBox(
                                       width: 40,
+                                      height: 30,
                                       child: ProductCategoryImage(
                                           e['name'].toString()),
                                       // child: FaIcon(

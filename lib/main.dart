@@ -12,6 +12,7 @@ import 'package:orderguide/pages/options.dart';
 import 'package:orderguide/pages/review.dart';
 import 'package:orderguide/pages/scan.dart';
 import 'package:orderguide/widgets/add_product.dart';
+import 'package:orderguide/widgets/edit_product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:flutter/services.dart';
@@ -48,6 +49,14 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (context) => AddProductBottomSheet(
                         refresh: arguments['refresh'],
+                        setEditProducts: arguments['setEditProducts'],
+                        setCategory: arguments['setCategory'],
+                      ));
+            case '/edit-product':
+              return MaterialPageRoute(
+                  builder: (context) => EditProductBottomSheet(
+                        refresh: arguments['refresh'],
+                        id: arguments['id'],
                         setEditProducts: arguments['setEditProducts'],
                         setCategory: arguments['setCategory'],
                       ));
