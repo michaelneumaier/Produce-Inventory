@@ -18,7 +18,7 @@ You can inventory in increments of half cases or whole cases.
 
 If you have already taken inventory previously, you can tap "Clear Counts" and will set all product counts to 0.
 
-You have a few ways to sort the products you wish to inventory.
+You have a few ways to sort the products you wish to inventory:
 - Swipe from the left or press the hamburger icon on the top left.
   - You can show only Organic PLU products (only PLUs starting with a 9)
   - You can show only Packaged products (non 4 or 5 digit PLUs)
@@ -39,3 +39,5 @@ Finally, after inventorying, and reviewing, you can scan all of the products usi
 When set up properly, this tool can help easily inventory your products without wasting paper or having to flip through an order guide.
 
 When you're done scanning, you can always go back to the Review screen to have a clear idea of the products you scanned.
+
+You will not be able to scan the barcodes using an older 1D Laser style barcode scanner.
