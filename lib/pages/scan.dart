@@ -10,11 +10,10 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
-  var products;
+  late List products;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     InventoryData().readProducts().then((value) => products = value);
   }
@@ -28,9 +27,9 @@ class _ScanPageState extends State<ScanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scan'),
+        title: const Text('Scan'),
       ),
-      body: ScanListView(),
+      body: const ScanListView(),
     );
   }
 }

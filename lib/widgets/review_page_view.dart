@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:orderguide/models/inventory_controller.dart';
-import 'package:orderguide/pages/inventory.dart';
-import 'package:orderguide/widgets/add_product.dart';
-import 'package:orderguide/widgets/alert_box.dart';
-import 'package:orderguide/widgets/edit_product.dart';
+import 'package:orderguide/models/products.dart';
 import 'package:orderguide/widgets/product_category_image.dart';
 
 class ReviewListView extends StatefulWidget {
   final AsyncSnapshot snapshot;
 
-  Function refresh;
+  final Function refresh;
 
-  ReviewListView({Key? key, required this.snapshot, required this.refresh})
+  const ReviewListView(
+      {Key? key, required this.snapshot, required this.refresh})
       : super(key: key);
 
   @override
@@ -21,11 +18,11 @@ class ReviewListView extends StatefulWidget {
 class _ReviewListViewState extends State<ReviewListView> {
   @override
   Widget build(BuildContext context) {
-    var item_count = 0;
+    var itemCount = 0;
     var _products = [];
     widget.snapshot.data.forEach((element) {
       if (element['count'] > 0 && element['visible'] != false) {
-        item_count++;
+        itemCount++;
         _products.add(element);
       }
       // if (element['count'] == 0)
@@ -37,7 +34,7 @@ class _ReviewListViewState extends State<ReviewListView> {
       appBar: AppBar(
         title: const Text('Review Inventory'),
       ),
-      body: item_count == 0
+      body: itemCount == 0
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,18 +56,30 @@ class _ReviewListViewState extends State<ReviewListView> {
               ),
             )
           : ListView(
-              children: List.generate(item_count, (index) {
-                final count = _products[index]["count"];
-                final countDouble;
-                bool isDouble = false;
-                bool isInteger(num value) => (value % 1) == 0;
+              children: List.generate(itemCount, (index) {
+                //Start Product Instantiation
 
-                if (isInteger(count) == true) {
-                  countDouble = count.toDouble().toStringAsFixed(0);
+                var snapshotData = widget.snapshot.data[index];
+                bool? isVisible;
+                if (snapshotData['visible'] != null) {
+                  isVisible = snapshotData['visible'];
                 } else {
-                  isDouble = true;
-                  countDouble = count.toDouble();
+                  isVisible = true;
                 }
+                final count = snapshotData['count'] as num;
+                bool hasImage = false;
+                if (snapshotData['image'] != null) {
+                  hasImage = true;
+                }
+                Product product = Product(
+                    id: snapshotData['id'] as int,
+                    category: snapshotData['category'],
+                    name: snapshotData['name'],
+                    image: hasImage ? snapshotData['image'] : '',
+                    upc: snapshotData['upc'] as String,
+                    count: count.toDouble(),
+                    visible: isVisible!);
+                //End Product Instantiation
                 //print(index);
 
                 return Card(
@@ -105,7 +114,7 @@ class _ReviewListViewState extends State<ReviewListView> {
                         SizedBox(
                           width: 30,
                           child: Text(
-                            countDouble.toString(),
+                            product.getCount,
                             textAlign: TextAlign.center,
                             style: const TextStyle(fontSize: 18),
                           ),

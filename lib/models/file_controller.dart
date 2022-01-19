@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:orderguide/models/inventory_controller.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:external_path/external_path.dart';
 import 'package:intl/intl.dart';
@@ -79,7 +79,7 @@ Future<void> loadFile() async {
     if (_json['products'] != null) {
       //print(_json.toString());
       writeJson(_json['products']);
-      print('Inventory file overwritten');
+      log('Inventory file overwritten');
     }
     //print(_json);
     //return _json;
@@ -88,10 +88,10 @@ Future<void> loadFile() async {
   }
 }
 
-Future<void> readProducts() async {
-  final _readProducts = await loadFile();
+// Future<void> readProducts() async {
+//   final _readProducts = await loadFile();
 
-  //print(_readProducts.toString());
-  //print(_readProducts['products']);
-  //return _readProducts['products'];
-}
+//   //print(_readProducts.toString());
+//   //print(_readProducts['products']);
+//   //return _readProducts['products'];
+// }

@@ -1,18 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:orderguide/models/category_images.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 import 'package:orderguide/widgets/product_category_image.dart';
 
 class AddProductWidget extends StatefulWidget {
-  Function refresh;
-  final type;
+  final Function refresh;
+  final String type;
 
-  AddProductWidget({Key? key, required this.refresh, this.type})
+  const AddProductWidget({Key? key, required this.refresh, required this.type})
       : super(key: key);
 
   @override
@@ -20,13 +21,6 @@ class AddProductWidget extends StatefulWidget {
 }
 
 class _AddProductWidgetState extends State<AddProductWidget> {
-  late var _categories;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   final categories = Categories().getCategories();
 
   @override
@@ -39,7 +33,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
 
     return Container(
         child: widget.type == "icon"
-            ? IconButton(onPressed: () => onPressed(), icon: Icon(Icons.add))
+            ? IconButton(
+                onPressed: () => onPressed(), icon: const Icon(Icons.add))
             : ElevatedButton(
                 child: const Text('Add Product'),
                 onPressed: () => onPressed(),
@@ -48,9 +43,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
 }
 
 class AddProductBottomSheet extends StatefulWidget {
-  final refresh;
-  final setEditProducts;
-  final setCategory;
+  final Function refresh;
+  final Function? setEditProducts;
+  final String? setCategory;
   const AddProductBottomSheet(
       {Key? key, required this.refresh, this.setEditProducts, this.setCategory})
       : super(key: key);
@@ -86,7 +81,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
+      log(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -142,7 +137,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   @override
   Widget build(BuildContext context) {
     //print(widget.categories);
-    print(widget.setCategory);
+    log(widget.setCategory!);
     final categoryValues = categoriesWithImages;
     //print(categoryValues);
     return Scaffold(
@@ -197,7 +192,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                   });
                                 });
                               },
-                              child: Text('Scan Barcode')),
+                              child: const Text('Scan Barcode')),
                         )
                       ],
                     ),
@@ -205,7 +200,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     //_categories
                     FormBuilderDropdown(
                       name: 'category',
-                      hint: Text('Select Category'),
+                      hint: const Text('Select Category'),
                       validator: FormBuilderValidators.compose(
                           [FormBuilderValidators.required(context)]),
                       //items: [DropdownMenuItem(child: Text('Apples'))],
@@ -223,13 +218,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                   children: [
                                     SizedBox(
                                       width: 40,
-                                      child: ProductCategoryImage(e['name']),
+                                      child: ProductCategoryImage(
+                                          e['name'].toString()),
                                       // child: FaIcon(
                                       //   e['icon'] as IconData,
                                       //   color: e['color'] as Color,
                                       // ),
                                     ),
-                                    SizedBox(width: 10),
+                                    const SizedBox(width: 10),
                                     Text(
                                       e['name'].toString(),
                                     ),
@@ -246,14 +242,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Expanded(
                   child: ElevatedButton(
-                      child: Text('Cancel'),
+                      child: const Text('Cancel'),
                       style: ElevatedButton.styleFrom(primary: Colors.grey),
                       onPressed: () => Navigator.pop(context)),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Expanded(
                   child: ElevatedButton(
-                    child: Text('Submit'),
+                    child: const Text('Submit'),
                     onPressed: () {
                       _formKey.currentState?.save();
                       if (_formKey.currentState!.validate()) {
@@ -271,7 +267,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         //print(_formKey.currentState!.value);
 
                       } else {
-                        print('Form not valid');
+                        log('Form not valid');
                       }
                     },
                   ),

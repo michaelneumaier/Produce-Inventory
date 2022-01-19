@@ -1,9 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:orderguide/models/category_images.dart';
 
 import 'package:orderguide/models/inventory_controller.dart';
-import 'package:orderguide/widgets/add_product.dart';
-import 'package:orderguide/widgets/clear_counts.dart';
 import 'package:orderguide/widgets/products_list_view.dart';
 
 class InventoryPage extends StatefulWidget {
@@ -14,15 +14,15 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPageState extends State<InventoryPage> {
-  late var _categories;
-  var editProducts;
+  late List _categories;
+  bool editProducts = false;
   dynamic currentInventory = [];
-  late var viewProductsListViewKey;
-  var setCategory;
+  //late var viewProductsListViewKey;
+  late String setCategory = 'all';
   late Future inventoryFuture;
   void refreshInventoryWidget(
       [bool? keepEditProducts, bool? fullRefersh, String? category]) {
-    print('refresh');
+    log('refresh');
     //inventoryFuture = InventoryData().readProducts();
     setState(() {
       if (keepEditProducts != null) {
@@ -39,7 +39,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   @override
   void initState() {
-    print('inventory page init state');
+    log('inventory page init state');
     _categories = Categories().categories;
     inventoryFuture = InventoryData().readProducts();
     super.initState();
@@ -55,7 +55,7 @@ class _InventoryPageState extends State<InventoryPage> {
             child: FutureBuilder(
                 future: inventoryFuture,
                 builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasError) print(snapshot.error);
+                  if (snapshot.hasError) log(snapshot.error.toString());
                   if (snapshot.connectionState == ConnectionState.done) {
                     return ProductsListView(
                       categories: _categories,

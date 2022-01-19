@@ -1,9 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:orderguide/models/inventory_controller.dart';
-import 'package:orderguide/widgets/add_product.dart';
-import 'package:orderguide/widgets/clear_counts.dart';
-import 'package:orderguide/widgets/products_list_view.dart';
 import 'package:orderguide/widgets/review_page_view.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -19,7 +18,7 @@ class _ReviewPageState extends State<ReviewPage> {
   dynamic currentInventory = [];
 
   void refreshInventoryWidget() {
-    print('refresh');
+    log('refresh');
     setState(() {});
   }
 
@@ -30,9 +29,6 @@ class _ReviewPageState extends State<ReviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    var item_count = 0;
-    //final _products = [];
-
     return Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +37,7 @@ class _ReviewPageState extends State<ReviewPage> {
             child: FutureBuilder(
                 future: productsFuture,
                 builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasError) print(snapshot.error);
+                  if (snapshot.hasError) log(snapshot.error.toString());
                   if (snapshot.hasData) {
                     snapshot.data.forEach((element) {
                       // if (element['count'] > 0) {

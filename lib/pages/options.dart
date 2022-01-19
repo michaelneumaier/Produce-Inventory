@@ -14,7 +14,7 @@ class _OptionsPageState extends State<OptionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Options'),
+        title: const Text('Options'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -22,16 +22,17 @@ class _OptionsPageState extends State<OptionsPage> {
           children: [
             ElevatedButton(
                 onPressed: () => writeImageLocationToJson(),
-                child: Text('Write image location to JSON')),
+                child: const Text('Write image location to JSON')),
             ElevatedButton(
-                onPressed: () => loadFile(), child: Text('Load Order Guide')),
+                onPressed: () => loadFile(),
+                child: const Text('Load Order Guide')),
             ElevatedButton(
                 onPressed: () {
                   saveFile().then((value) => ScaffoldMessenger.of(context)
                       .showSnackBar(
-                          SnackBar(content: const Text('File saved!'))));
+                          const SnackBar(content: Text('File saved!'))));
                 },
-                child: Text('Save Order Guide'))
+                child: const Text('Save Order Guide'))
           ],
         ),
       ),

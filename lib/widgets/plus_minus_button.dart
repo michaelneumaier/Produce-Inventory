@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 
-enum Delta { Plus, Minus, Half }
+enum Delta { plus, minus, half }
 
 class PlusMinusButton extends StatelessWidget {
-  final widget;
-  final index;
+  final dynamic widget;
+  final int index;
   final Delta delta;
   const PlusMinusButton(
       {Key? key,
@@ -17,22 +17,19 @@ class PlusMinusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _delta = 0.0;
-    var icon;
+    late dynamic icon;
     final count = widget.snapshot.data[index]['count'] as num;
-    final countDouble;
     final iconColors = <String, Color>{};
     bool isDouble = false;
     bool isInteger(num value) => (value % 1) == 0;
 
     if (isInteger(count) == true) {
-      countDouble = count.toDouble().toStringAsFixed(0);
     } else {
       isDouble = true;
-      countDouble = count.toDouble();
     }
 
     switch (delta) {
-      case Delta.Plus:
+      case Delta.plus:
         _delta = 1;
         icon = const Icon(Icons.add);
         iconColors.addAll({
@@ -40,7 +37,7 @@ class PlusMinusButton extends StatelessWidget {
           'onPrimary': Colors.blueGrey[100] as Color
         });
         break;
-      case Delta.Minus:
+      case Delta.minus:
         _delta = -1;
         icon = const Icon(Icons.remove);
         iconColors.addAll({
@@ -48,7 +45,7 @@ class PlusMinusButton extends StatelessWidget {
           'onPrimary': Colors.blueGrey[500] as Color
         });
         break;
-      case Delta.Half:
+      case Delta.half:
         if (isDouble == false) {
           _delta = 0.5;
           icon = const Text(
@@ -76,22 +73,22 @@ class PlusMinusButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         if (widget.snapshot.data[index]["count"] == 0.5 &&
-            delta == Delta.Minus) {
+            delta == Delta.minus) {
           widget.snapshot.data[index]["count"] = 0;
           writeJson(widget.snapshot.data);
           widget.refresh();
         } else if (widget.snapshot.data[index]["count"] >= 1 &&
-            delta == Delta.Minus) {
+            delta == Delta.minus) {
           widget.snapshot.data[index]["count"] += _delta;
           writeJson(widget.snapshot.data);
           widget.refresh();
         } else if (widget.snapshot.data[index]["count"] >= 0 &&
-            delta == Delta.Plus) {
+            delta == Delta.plus) {
           widget.snapshot.data[index]["count"] += _delta;
           writeJson(widget.snapshot.data);
           widget.refresh();
         } else if (widget.snapshot.data[index]["count"] >= 0 &&
-            delta == Delta.Half) {
+            delta == Delta.half) {
           widget.snapshot.data[index]["count"] += _delta;
           writeJson(widget.snapshot.data);
           widget.refresh();

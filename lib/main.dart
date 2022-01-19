@@ -6,8 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:orderguide/pages/categories.dart';
-//import 'package:flutter/services.dart';
+
 import 'package:orderguide/pages/inventory.dart';
 import 'package:orderguide/pages/options.dart';
 import 'package:orderguide/pages/review.dart';
@@ -90,7 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getPrefs();
   }

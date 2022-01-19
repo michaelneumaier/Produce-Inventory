@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,16 +9,16 @@ import 'package:orderguide/models/category_images.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 
 class EditProductWidget extends StatefulWidget {
-  Function refresh;
-  final id;
-  final products;
-  final parentContext;
+  final Function refresh;
+  final int id;
+  final List products;
+  final BuildContext parentContext;
 
-  EditProductWidget(
+  const EditProductWidget(
       {Key? key,
       required this.refresh,
       required this.id,
-      this.products,
+      required this.products,
       required this.parentContext})
       : super(key: key);
 
@@ -25,21 +27,13 @@ class EditProductWidget extends StatefulWidget {
 }
 
 class _EditProductWidgetState extends State<EditProductWidget> {
-  late var _categories;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   final categories = Categories().getCategories();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: IconButton(
+    return IconButton(
       //child: const Text('Add Product'),
-      icon: Icon(Icons.edit),
+      icon: const Icon(Icons.edit),
       color: Colors.grey[600],
       onPressed: () {
         showBottomSheet(
@@ -53,19 +47,19 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                 ));
         //addProduct('apples', 'Pink Lady', '4130', widget.refresh);
       },
-    ));
+    );
   }
 }
 
 class EditProductBottomSheet extends StatefulWidget {
-  final id;
-  final refresh;
+  final int id;
+  final Function refresh;
   final List products;
   final List categories;
   const EditProductBottomSheet(
       {Key? key,
       required this.categories,
-      this.refresh,
+      required this.refresh,
       required this.id,
       required this.products})
       : super(key: key);
@@ -77,8 +71,6 @@ class EditProductBottomSheet extends StatefulWidget {
 class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
   final _formKey = GlobalKey<FormBuilderState>();
   final categoriesWithImages = Categories().categoriesWithImages;
-  late final _categories;
-  final _dropdownMenu = <Widget>[];
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +78,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
     final currentProduct =
         widget.products.firstWhere((element) => element['id'] == widget.id);
     final categoryValues = categoriesWithImages;
-    print(categoryValues);
+    log(categoryValues.toString());
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -125,7 +117,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
                   //_categories
                   FormBuilderDropdown(
                     name: 'category',
-                    hint: Text('Select Category'),
+                    hint: const Text('Select Category'),
                     initialValue: currentProduct['category'],
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
@@ -165,14 +157,14 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Expanded(
                 child: ElevatedButton(
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                     style: ElevatedButton.styleFrom(primary: Colors.grey),
                     onPressed: () => Navigator.pop(context)),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: ElevatedButton(
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                   onPressed: () {
                     _formKey.currentState?.save();
                     if (_formKey.currentState!.validate()) {
@@ -187,7 +179,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
                       _formKey.currentState!.reset();
                       Navigator.pop(context);
                     } else {
-                      print('Form not valid');
+                      log('Form not valid');
                     }
                   },
                 ),

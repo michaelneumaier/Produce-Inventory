@@ -1,13 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:orderguide/models/inventory_controller.dart';
 
 class AddCategoryWidget extends StatefulWidget {
-  Function refresh;
+  final Function refresh;
 
-  AddCategoryWidget({Key? key, required this.refresh}) : super(key: key);
+  const AddCategoryWidget({Key? key, required this.refresh}) : super(key: key);
 
   @override
   _AddCategoryWidgetState createState() => _AddCategoryWidgetState();
@@ -16,8 +16,7 @@ class AddCategoryWidget extends StatefulWidget {
 class _AddCategoryWidgetState extends State<AddCategoryWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: ElevatedButton(
+    return ElevatedButton(
       child: const Text('Add Category'),
       onPressed: () {
         showBottomSheet(
@@ -26,13 +25,14 @@ class _AddCategoryWidgetState extends State<AddCategoryWidget> {
                 AddCategoryBottomSheet(refresh: widget.refresh));
         //addProduct('apples', 'Pink Lady', '4130', widget.refresh);
       },
-    ));
+    );
   }
 }
 
 class AddCategoryBottomSheet extends StatefulWidget {
-  Function refresh;
-  AddCategoryBottomSheet({Key? key, required this.refresh}) : super(key: key);
+  final Function refresh;
+  const AddCategoryBottomSheet({Key? key, required this.refresh})
+      : super(key: key);
 
   @override
   _AddCategoryBottomSheetState createState() => _AddCategoryBottomSheetState();
@@ -67,14 +67,14 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Expanded(
                 child: ElevatedButton(
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                     style: ElevatedButton.styleFrom(primary: Colors.grey),
                     onPressed: () => Navigator.pop(context)),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: ElevatedButton(
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                   onPressed: () {
                     _formKey.currentState?.save();
                     if (_formKey.currentState!.validate()) {
@@ -83,7 +83,7 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                       //     _formKey.currentState!.value["name"], widget.refresh);
                       Navigator.pop(context);
                     } else {
-                      print('Form not valid');
+                      log('Form not valid');
                     }
                   },
                 ),

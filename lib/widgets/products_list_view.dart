@@ -1,4 +1,4 @@
-import 'dart:ffi';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,24 +9,21 @@ import 'package:orderguide/models/image_controller.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 import 'package:orderguide/models/products.dart';
 import 'package:orderguide/models/upc.dart';
-import 'package:orderguide/pages/inventory.dart';
-import 'package:orderguide/widgets/add_product.dart';
 import 'package:orderguide/widgets/alert_box.dart';
 import 'package:orderguide/widgets/edit_product.dart';
 import 'package:orderguide/widgets/plus_minus_button.dart';
 import 'package:orderguide/widgets/product_category_image.dart';
 import 'package:orderguide/widgets/products_drawer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductsListView extends StatefulWidget {
   final List categories;
 
   final AsyncSnapshot snapshot;
-  final editProducts;
-  final setCategory;
-  Function refresh;
+  final bool? editProducts;
+  final String? setCategory;
+  final Function refresh;
 
-  ProductsListView(
+  const ProductsListView(
       {Key? key,
       required this.categories,
       required this.snapshot,
@@ -60,21 +57,14 @@ class _ProductsListViewState extends State<ProductsListView> {
     });
   }
 
-  void _getOrganicCheckBoxValue() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      showOrganicOnly = (prefs.getBool('view_organic_only') ?? false);
-    });
-  }
-
   @override
   void initState() {
     if (widget.editProducts != null) {
-      editProducts = widget.editProducts;
+      editProducts = widget.editProducts!;
     }
     if (widget.setCategory != null) {
-      print('set categoryfilter to ' + widget.setCategory);
-      categoryFilter = widget.setCategory;
+      log('set categoryfilter to ' + widget.setCategory!);
+      categoryFilter = widget.setCategory!;
     }
     //print('products list view init');
     super.initState();
@@ -105,7 +95,7 @@ class _ProductsListViewState extends State<ProductsListView> {
               SizedBox(
                 width: 40,
                 height: 30,
-                child: ProductCategoryImage(e['name']),
+                child: ProductCategoryImage(e['name'].toString()),
                 // child: FaIcon(
                 //   e['icon'] as IconData,
                 //   color: e['color'] as Color,
@@ -124,7 +114,7 @@ class _ProductsListViewState extends State<ProductsListView> {
     //print(widget.snapshot.data.toString());
 
     return Scaffold(
-      drawer: ProductsListViewDrawer(),
+      drawer: const ProductsListViewDrawer(),
       onDrawerChanged: (isOpened) {
         if (isOpened == false) {
           setState(() {});
@@ -175,7 +165,7 @@ class _ProductsListViewState extends State<ProductsListView> {
                     'setCategory': categoryFilter
                   }).whenComplete(() => setEditProductsBool(true));
                 },
-                icon: Icon(Icons.add)),
+                icon: const Icon(Icons.add)),
           // AddProductWidget(
           //   refresh: widget.refresh,
           //   type: 'icon',
@@ -206,10 +196,12 @@ class _ProductsListViewState extends State<ProductsListView> {
             onChanged: (e) {
               //print(e);
               setState(() {
-                if (editProducts == true)
+                if (editProducts == true) {
                   editProductsScrollController.jumpTo(0);
-                if (editProducts == false)
+                }
+                if (editProducts == false) {
                   viewProductsScrollController.jumpTo(0);
+                }
                 categoryFilter = e.toString();
               });
             },
@@ -295,7 +287,7 @@ class _ProductsListViewState extends State<ProductsListView> {
                                         //product.visible = value;
                                         snapshotData['visible'] = value;
                                         isVisible = value;
-                                        print('toggle visible $value');
+                                        log('toggle visible $value');
                                       });
                                     },
                                   ),
@@ -567,11 +559,11 @@ class _ProductsListViewState extends State<ProductsListView> {
                                                 PlusMinusButton(
                                                     widget: widget,
                                                     index: index,
-                                                    delta: Delta.Half),
+                                                    delta: Delta.half),
                                                 PlusMinusButton(
                                                   widget: widget,
                                                   index: index,
-                                                  delta: Delta.Minus,
+                                                  delta: Delta.minus,
                                                 ),
                                                 SizedBox(
                                                   width: 30,
@@ -591,7 +583,7 @@ class _ProductsListViewState extends State<ProductsListView> {
                                                 PlusMinusButton(
                                                   widget: widget,
                                                   index: index,
-                                                  delta: Delta.Plus,
+                                                  delta: Delta.plus,
                                                 ),
                                               ],
                                             ),

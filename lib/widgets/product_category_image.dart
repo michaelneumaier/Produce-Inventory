@@ -1,17 +1,16 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:orderguide/models/category_images.dart';
-import 'package:http/http.dart' as http;
 import 'package:orderguide/models/image_controller.dart';
 
 class ProductCategoryImage extends StatefulWidget {
-  final category;
-  final upc;
+  final String? category;
+  final String? upc;
 
-  ProductCategoryImage(this.category, [this.upc]);
+  const ProductCategoryImage(this.category, [this.upc]);
 
   @override
   State<ProductCategoryImage> createState() => _ProductCategoryImageState();
@@ -35,7 +34,7 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
         for (var i = 0; i < zeroesToAdd; i++) {
           imageUrl = imageUrl + '0';
         }
-        imageUrl = imageUrl + widget.upc;
+        imageUrl = imageUrl + widget.upc!;
         imageUrlCompleted = true;
       }
       //print(imageUrl);
@@ -63,7 +62,6 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
   //var imageExists = null;
   //@override
   // void initState() {
-  //   // TODO: implement initState
   //   print(widget.upc);
   //   if (widget.upc != null) {
   //     upc = widget.upc;
@@ -107,17 +105,17 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
     if (widget.upc != null) {
       if (imageUrlCompleted == false) {
         var upcZeroes = 13;
-        final upcLength = widget.upc.length;
+        final upcLength = widget.upc!.length;
         final zeroesToAdd = upcZeroes - upcLength;
         for (var i = 0; i < zeroesToAdd; i++) {
           imageUrl = imageUrl + '0';
           upcWithZeroes = upcWithZeroes + '0';
         }
-        imageUrl = imageUrl + widget.upc;
-        upcWithZeroes = upcWithZeroes + widget.upc;
+        imageUrl = imageUrl + widget.upc!;
+        upcWithZeroes = upcWithZeroes + widget.upc!;
         imageUrlCompleted = true;
       }
-      print('not loading image path from json');
+      log('not loading image path from json');
       //print(imageExists);
       // if (imageExists == true) {
       //   return FutureBuilder(

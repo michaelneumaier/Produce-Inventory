@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+//import 'dart:developer';
 //import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:orderguide/models/category_images.dart';
+
 import 'package:orderguide/models/image_controller.dart';
 import 'package:orderguide/models/upc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../pages/inventory.dart';
+//import '../pages/inventory.dart';
 
 List _categories = [];
 List _products = [];
@@ -108,20 +109,19 @@ Future<void> addProduct(String category, String name, String upc,
     [Function? refresh, String? setCategory]) async {
   final _readJson = await readJson();
   _products = _readJson['products'];
-  var _largest_value = 0;
-  final categories = Categories().categories;
+  var largestValue = 0;
 
-  _products.forEach((e) {
+  for (var e in _products) {
     if (e['id'] is String) {
-      if (int.parse(e['id']) > _largest_value) {
-        _largest_value = int.parse(e['id']);
+      if (int.parse(e['id']) > largestValue) {
+        largestValue = int.parse(e['id']);
       }
     } else {
-      if (e['id'] > _largest_value) {
-        _largest_value = e['id'];
+      if (e['id'] > largestValue) {
+        largestValue = e['id'];
       }
     }
-  });
+  }
   if (upc.length == 13) {
     if (upc[0] == '0' &&
         upc[1] == '0' &&
@@ -138,8 +138,8 @@ Future<void> addProduct(String category, String name, String upc,
       }
     }
   }
-  _largest_value++;
-  final _newId = _largest_value;
+  largestValue++;
+  final _newId = largestValue;
   final _newProduct = {
     "id": (_newId),
     "category": category,
@@ -200,28 +200,28 @@ Future<void> writeImageLocationToJson() async {
   }
   writeJson(_products);
   //log(_products.toString());
-  print('images saved to Json');
+  log('images saved to Json');
 }
 
 // Future<void> addCategory(String name, Function refresh) async {
 //   final _readJson = await readJson();
 //   _categories = _readJson['categories'];
 //   _products = _readJson['products'];
-//   var _largest_value = 0;
+//   var largestValue = 0;
 
 //   _categories.forEach((e) {
 //     if (e['id'] is String) {
-//       if (int.parse(e['id']) > _largest_value) {
-//         _largest_value = int.parse(e['id']);
+//       if (int.parse(e['id']) > largestValue) {
+//         largestValue = int.parse(e['id']);
 //       }
 //     } else {
-//       if (e['id'] > _largest_value) {
-//         _largest_value = e['id'];
+//       if (e['id'] > largestValue) {
+//         largestValue = e['id'];
 //       }
 //     }
 //   });
-//   _largest_value++;
-//   final _newId = _largest_value;
+//   largestValue++;
+//   final _newId = largestValue;
 //   final _newCategory = {"id": _newId, "name": name};
 
 //   _categories.add(_newCategory);
@@ -280,15 +280,15 @@ Future<void> clearCounts() async {
 
   _products = _readJson['products'];
 
-  _products.forEach((e) {
+  for (var e in _products) {
     e['count'] = 0;
-  });
+  }
 
   writeJson(_products);
 }
 
 class InventoryData {
-  StreamController _controller = StreamController<List>();
+  //StreamController _controller = StreamController<List>();
   //List categories;
   //List products;
 

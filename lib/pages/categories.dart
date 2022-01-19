@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 import 'package:orderguide/widgets/add_category.dart';
@@ -11,7 +13,7 @@ class CategoriesPage extends StatefulWidget {
 
 class _CategoriesPageState extends State<CategoriesPage> {
   void refreshCategoriesWidget() {
-    print('refresh');
+    log('refresh');
     setState(() {
       InventoryData().read();
     });
@@ -51,10 +53,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
               },
             ),
           ),
-          Container(
-            child: AddCategoryWidget(
-              refresh: refreshCategoriesWidget,
-            ),
+          AddCategoryWidget(
+            refresh: refreshCategoriesWidget,
           )
         ],
       ),

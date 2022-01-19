@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 
 class RemoveProductWidget extends StatelessWidget {
-  final id;
+  final int id;
   final String name;
   final Function refresh;
 

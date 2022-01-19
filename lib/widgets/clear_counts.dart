@@ -7,7 +7,7 @@ class ClearCountsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: Text('Clear Counts'),
+      child: const Text('Clear Counts'),
       onPressed: () => clearCounts(),
     );
   }

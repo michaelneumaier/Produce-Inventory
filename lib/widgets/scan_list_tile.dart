@@ -1,12 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
 class ScanListTile extends StatelessWidget {
-  final index;
-  final item_count;
-  final product;
-  const ScanListTile(
-      @required this.product, @required this.index, @required this.item_count);
+  final int index;
+  final num itemCount;
+  final Map product;
+  const ScanListTile(this.product, this.index, this.itemCount);
 
   generateBarcode(upc) {
     return BarcodeWidget(
@@ -22,14 +23,12 @@ class ScanListTile extends StatelessWidget {
     bool isOrganic = false;
     if (product["upc"][0] == "9") isOrganic = true;
     final count = product["count"];
-    final countDouble;
-    bool isDouble = false;
+    final dynamic countDouble;
     bool isInteger(num value) => (value % 1) == 0;
 
     if (isInteger(count) == true) {
       countDouble = count.toDouble().toStringAsFixed(0);
     } else {
-      isDouble = true;
       countDouble = count.toDouble();
     }
     String countString;
@@ -40,7 +39,7 @@ class ScanListTile extends StatelessWidget {
     } else {
       countString = '$countDouble Cases';
     }
-    print(isOrganic);
+    log(isOrganic.toString());
 
     //print(countDouble.toString());
     return Container(
@@ -82,7 +81,7 @@ class ScanListTile extends StatelessWidget {
             const SizedBox(height: 50),
             generateBarcode(product['upc']),
             Text(
-              '$index of $item_count',
+              '$index of $itemCount',
               style: const TextStyle(fontSize: 30),
             )
           ],

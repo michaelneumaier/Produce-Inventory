@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 import 'package:orderguide/widgets/scan_list_tile.dart';
@@ -10,25 +12,19 @@ class ScanListView extends StatefulWidget {
 }
 
 class _ScanListViewState extends State<ScanListView> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   final scanListFuture = InventoryData().readProducts();
   @override
   Widget build(BuildContext context) {
-    var item_count = 0;
+    var itemCount = 0;
     var _products = [];
     return FutureBuilder(
         future: scanListFuture,
         builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
+          if (snapshot.hasError) log(snapshot.error.toString());
           if (snapshot.hasData) {
             snapshot.data.forEach((element) {
               if (element['count'] > 0 && element['visible'] != false) {
-                item_count++;
+                itemCount++;
                 _products.add(element);
               }
               // if (element['count'] == 0)
@@ -38,7 +34,7 @@ class _ScanListViewState extends State<ScanListView> {
             //print(snapshot.data);
           }
           return snapshot.hasData
-              ? item_count == 0
+              ? itemCount == 0
                   ? Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -62,14 +58,14 @@ class _ScanListViewState extends State<ScanListView> {
                   : PageView.builder(
                       itemBuilder: (BuildContext context, index) {
                         return ScanListTile(
-                            _products[index], index + 1, item_count);
+                            _products[index], index + 1, itemCount);
                       },
                       scrollDirection: Axis.vertical,
-                      itemCount: item_count,
+                      itemCount: itemCount,
                       allowImplicitScrolling: false,
                     )
               // ? ListView.builder(
-              //     itemCount: item_count,
+              //     itemCount: itemCount,
               //     itemExtent: 500,
               //     itemBuilder: (BuildContext context, int index) {
               //       //print(_products[index]);
@@ -78,10 +74,10 @@ class _ScanListViewState extends State<ScanListView> {
               //       // );
               //       return ScanListTile(_products[index]);
               //     })
-              : CircularProgressIndicator();
+              : const CircularProgressIndicator();
         });
     // ListView.builder(
-    //     itemCount: item_count,
+    //     itemCount: itemCount,
     //     itemBuilder: (BuildContext context, int index) {
     //       return ListTile(
     //         title: Text(_products[index]['name'].toString()),
