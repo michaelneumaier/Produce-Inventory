@@ -20,7 +20,7 @@ class _ScanListViewState extends State<ScanListView> {
     return FutureBuilder(
         future: scanListFuture,
         builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) log(snapshot.error.toString());
+          //if (snapshot.hasError) log(snapshot.error.toString());
           if (snapshot.hasData) {
             snapshot.data.forEach((element) {
               if (element['count'] > 0 && element['visible'] != false) {

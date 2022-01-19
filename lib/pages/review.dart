@@ -18,7 +18,7 @@ class _ReviewPageState extends State<ReviewPage> {
   dynamic currentInventory = [];
 
   void refreshInventoryWidget() {
-    log('refresh');
+    //log('refresh');
     setState(() {});
   }
 

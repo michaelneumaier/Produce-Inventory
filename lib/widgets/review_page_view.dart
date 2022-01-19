@@ -18,7 +18,7 @@ class _ReviewListViewState extends State<ReviewListView> {
   var products = [];
   bool productsCounted = false;
   void refreshInventoryWidget() {
-    log('refresh');
+    //log('refresh');
     setState(() {});
   }
 
@@ -27,7 +27,7 @@ class _ReviewListViewState extends State<ReviewListView> {
     return FutureBuilder(
         future: productsFuture,
         builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) log(snapshot.error.toString());
+          //if (snapshot.hasError) log(snapshot.error.toString());
           if (snapshot.hasData) {
             snapshot.data.forEach((element) {
               if (element['count'] > 0 &&

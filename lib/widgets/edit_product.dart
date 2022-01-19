@@ -84,7 +84,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      log(barcodeScanRes);
+      //log(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -103,7 +103,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
     // final currentProduct =
     //     widget.products.firstWhere((element) => element['id'] == widget.id);
     final categoryValues = categoriesWithImages;
-    log(categoryValues.toString());
+    //log(categoryValues.toString());
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -257,7 +257,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
                                 _formKey.currentState!.reset();
                                 Navigator.pop(context);
                               } else {
-                                log('Form not valid');
+                                //log('Form not valid');
                               }
                             },
                           ),

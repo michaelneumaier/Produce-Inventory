@@ -65,7 +65,7 @@ class _ProductsListViewState extends State<ProductsListView> {
       editProducts = widget.editProducts!;
     }
     if (widget.setCategory != null) {
-      log('set categoryfilter to ' + widget.setCategory!);
+      //log('set categoryfilter to ' + widget.setCategory!);
       categoryFilter = widget.setCategory!;
     }
     //print('products list view init');
@@ -216,7 +216,7 @@ class _ProductsListViewState extends State<ProductsListView> {
                                       //product.visible = value;
                                       snapshotData['visible'] = value;
                                       isVisible = value;
-                                      log('toggle visible $value');
+                                      //log('toggle visible $value');
                                     });
                                   },
                                 ),

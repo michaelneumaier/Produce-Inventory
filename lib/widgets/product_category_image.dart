@@ -115,7 +115,7 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
         upcWithZeroes = upcWithZeroes + widget.upc!;
         imageUrlCompleted = true;
       }
-      log('not loading image path from json');
+      //log('not loading image path from json');
       //print(imageExists);
       // if (imageExists == true) {
       //   return FutureBuilder(

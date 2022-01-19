@@ -83,7 +83,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      log(barcodeScanRes);
+      //log(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -280,7 +280,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         //print(_formKey.currentState!.value);
 
                       } else {
-                        log('Form not valid');
+                        //log('Form not valid');
                       }
                     },
                   ),

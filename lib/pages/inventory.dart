@@ -23,7 +23,7 @@ class _InventoryPageState extends State<InventoryPage> {
   late Future inventoryFuture;
   void refreshInventoryWidget(
       [bool? keepEditProducts, bool? fullRefersh, String? category]) {
-    log('refresh');
+    //log('refresh');
     //inventoryFuture = InventoryData().readProducts();
     setState(() {
       if (keepEditProducts != null) {
@@ -46,7 +46,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   @override
   void initState() {
-    log('inventory page init state');
+    //log('inventory page init state');
     _categories = Categories().categories;
     inventoryFuture = InventoryData().readProducts();
     super.initState();
@@ -139,7 +139,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 child: FutureBuilder(
                     future: inventoryFuture,
                     builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasError) log(snapshot.error.toString());
+                      //if (snapshot.hasError) log(snapshot.error.toString());
                       if (snapshot.connectionState == ConnectionState.done) {
                         return ProductsListView(
                             categories: _categories,

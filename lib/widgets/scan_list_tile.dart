@@ -44,7 +44,7 @@ class _ScanListTileState extends State<ScanListTile> {
     } else {
       countString = '$countDouble Cases';
     }
-    log(isOrganic.toString());
+    //log(isOrganic.toString());
 
     //print(countDouble.toString());
     return Padding(
@@ -103,23 +103,26 @@ class _ScanListTileState extends State<ScanListTile> {
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Wrap(
-                    children: [
-                      isOrganic
-                          ? const Text(
-                              'Organic',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )
-                          : const Text(''),
-                      Text(
-                        widget.product['name'],
-                        style: const TextStyle(fontSize: 40),
-                      ),
-                    ],
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    direction: Axis.vertical,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Wrap(
+                      children: [
+                        isOrganic
+                            ? const Text(
+                                'Organic',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )
+                            : const Text(''),
+                        Text(
+                          widget.product['name'],
+                          style: const TextStyle(fontSize: 40),
+                        ),
+                      ],
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      direction: Axis.vertical,
+                    ),
                   ),
                 ),
               ),

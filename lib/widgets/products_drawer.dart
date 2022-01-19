@@ -41,6 +41,9 @@ class _ProductsListViewDrawerState extends State<ProductsListViewDrawer> {
     _getCheckBoxValue();
   }
 
+  TextStyle linkTextStyle = const TextStyle(
+      color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -83,13 +86,74 @@ class _ProductsListViewDrawerState extends State<ProductsListViewDrawer> {
                     text: TextSpan(children: [
                   const TextSpan(
                       text: 'Icons made by: ',
-                      style: TextStyle(color: Colors.black)),
+                      style: TextStyle(color: Colors.black, fontSize: 20)),
                   TextSpan(
-                      text: 'Flat Icons',
+                      text: 'Flat Icons, ',
+                      style: linkTextStyle,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           launch('https://www.flaticon.com/authors/flat-icons');
-                        })
+                        }),
+                  TextSpan(
+                      text: 'Smashicons, ',
+                      style: linkTextStyle,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch('https://www.flaticon.com/authors/smashicons');
+                        }),
+                  TextSpan(
+                    text: 'Freepik, ',
+                    style: linkTextStyle,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch('https://www.flaticon.com/authors/freepik');
+                      },
+                  ),
+                  TextSpan(
+                    text: 'kmg design, ',
+                    style: linkTextStyle,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch('https://www.flaticon.com/authors/kmg-design');
+                      },
+                  ),
+                  TextSpan(
+                    text: 'umeicon, ',
+                    style: linkTextStyle,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch('https://www.flaticon.com/authors/umeicon');
+                      },
+                  ),
+                  TextSpan(
+                    text: 'Pixel perfect, ',
+                    style: linkTextStyle,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch(
+                            'https://www.flaticon.com/authors/pixel-perfect');
+                      },
+                  ),
+                  TextSpan(
+                    text: 'justicon ',
+                    style: linkTextStyle,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch('https://www.flaticon.com/authors/justicon');
+                      },
+                  ),
+                  const TextSpan(
+                    text: 'from ',
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  TextSpan(
+                    text: 'flaticon.com',
+                    style: linkTextStyle,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch('https://www.flaticon.com/');
+                      },
+                  ),
                 ])),
               ])
             ]),
