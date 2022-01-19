@@ -1,4 +1,4 @@
-package com.example.orderguide
+package com.michaelneumaier.orderguide
 
 import io.flutter.embedding.android.FlutterActivity
 

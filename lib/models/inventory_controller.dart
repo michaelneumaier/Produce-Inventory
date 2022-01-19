@@ -96,13 +96,13 @@ Future<void> updateProduct(int id, String category, String name, String upc,
   refresh!(true, true, setCategory);
 }
 
-void writeJson(List products) {
+Future<void> writeJson(List products) async {
   var _data = {"products": products};
   //print(_data);
   final json = jsonEncode(_data);
   //print(combineJson);
   //log(combineJson.toString());
-  writeData(json);
+  await writeData(json);
 }
 
 Future<void> addProduct(String category, String name, String upc,
@@ -284,7 +284,7 @@ Future<void> clearCounts() async {
     e['count'] = 0;
   }
 
-  writeJson(_products);
+  await writeJson(_products);
 }
 
 class InventoryData {

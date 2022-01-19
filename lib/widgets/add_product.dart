@@ -44,11 +44,13 @@ class _AddProductWidgetState extends State<AddProductWidget> {
 
 class AddProductBottomSheet extends StatefulWidget {
   final Function refresh;
-  final Function? setEditProducts;
-  final String? setCategory;
-  const AddProductBottomSheet(
-      {Key? key, required this.refresh, this.setEditProducts, this.setCategory})
-      : super(key: key);
+  //final Function? setEditProducts;
+  //final String? setCategory;
+  const AddProductBottomSheet({
+    Key? key,
+    required this.refresh,
+    //this.setEditProducts, this.setCategory
+  }) : super(key: key);
 
   @override
   _AddProductBottomSheetState createState() => _AddProductBottomSheetState();
@@ -137,7 +139,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   @override
   Widget build(BuildContext context) {
     //print(widget.categories);
-    log(widget.setCategory!);
+    //log(widget.setCategory!);
     final categoryValues = categoriesWithImages;
     //print(categoryValues);
     return Scaffold(
@@ -265,12 +267,12 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                       _formKey.currentState?.save();
                       if (_formKey.currentState!.validate()) {
                         addProduct(
-                                _formKey.currentState!.value['category'],
-                                _formKey.currentState!.value['name'],
-                                _formKey.currentState!.value['upc'],
-                                widget.refresh,
-                                widget.setCategory)
-                            .whenComplete(() {
+                          _formKey.currentState!.value['category'],
+                          _formKey.currentState!.value['name'],
+                          _formKey.currentState!.value['upc'],
+                          widget.refresh,
+                          //widget.setCategory
+                        ).whenComplete(() {
                           //_formKey.currentState!.reset();
                           Navigator.pop(context);
                         });

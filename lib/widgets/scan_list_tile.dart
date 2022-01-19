@@ -3,12 +3,17 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
-class ScanListTile extends StatelessWidget {
+class ScanListTile extends StatefulWidget {
   final int index;
   final num itemCount;
   final Map product;
   const ScanListTile(this.product, this.index, this.itemCount);
 
+  @override
+  State<ScanListTile> createState() => _ScanListTileState();
+}
+
+class _ScanListTileState extends State<ScanListTile> {
   generateBarcode(upc) {
     return BarcodeWidget(
       data: upc.toString(),
@@ -21,8 +26,8 @@ class ScanListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isOrganic = false;
-    if (product["upc"][0] == "9") isOrganic = true;
-    final count = product["count"];
+    if (widget.product["upc"][0] == "9") isOrganic = true;
+    final count = widget.product["count"];
     final dynamic countDouble;
     bool isInteger(num value) => (value % 1) == 0;
 
@@ -48,7 +53,7 @@ class ScanListTile extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: index % 2 == 0
+            color: widget.index % 2 == 0
                 ? isOrganic
                     ? Colors.lightGreen.shade300
                     : Colors.blueGrey.shade300
@@ -63,7 +68,7 @@ class ScanListTile extends StatelessWidget {
               blurRadius: 10,
             )
           ],
-          color: index % 2 == 0
+          color: widget.index % 2 == 0
               ? isOrganic
                   ? Colors.lightGreen[100]
                   : Colors.blueGrey[100]
@@ -109,7 +114,7 @@ class ScanListTile extends StatelessWidget {
                             )
                           : const Text(''),
                       Text(
-                        product['name'],
+                        widget.product['name'],
                         style: const TextStyle(fontSize: 40),
                       ),
                     ],
@@ -123,7 +128,7 @@ class ScanListTile extends StatelessWidget {
                   child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: generateBarcode(
-                        product['upc'],
+                        widget.product['upc'],
                       ))),
               //const Expanded(child: SizedBox(height: 50)),
               Expanded(
@@ -133,7 +138,7 @@ class ScanListTile extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   //color: Colors.white,
                   child: Text(
-                    '$index of $itemCount',
+                    '${widget.index} of ${widget.itemCount}',
                     style: const TextStyle(fontSize: 30),
                   ),
                 ),

@@ -42,6 +42,7 @@ dependencies:
   external_path:
   intl:
   flutter_barcode_scanner:
+  url_launcher:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

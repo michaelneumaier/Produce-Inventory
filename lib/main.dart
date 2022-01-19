@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (context) => AddProductBottomSheet(
                         refresh: arguments['refresh'],
-                        setEditProducts: arguments['setEditProducts'],
-                        setCategory: arguments['setCategory'],
+                        //setEditProducts: arguments['setEditProducts'],
+                        //setCategory: arguments['setCategory'],
                       ));
             case '/edit-product':
               return MaterialPageRoute(
