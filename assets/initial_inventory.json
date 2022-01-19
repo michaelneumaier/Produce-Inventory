@@ -1,0 +1,42 @@
+{
+	"categories": [
+		{
+			"id": "01",
+			"name": "apples"
+		},
+		{
+			"id": "02",
+			"name": "citrus"
+		}
+	],
+	"products": [
+		{
+			"id": 1,
+			"category": "Apples",
+			"name": "Gala",
+			"upc": "4133",
+			"count": 2
+		},
+		{
+			"id": 2,
+			"category": "Apples",
+			"name": "Fuji",
+			"upc": "4129",
+			"count": 1
+		},
+		{
+			"id": 3,
+			"category": "Citrus",
+			"name": "Large Navel",
+			"upc": "4012",
+			"count": 3
+		},
+		{
+			"id": 4,
+			"category": "Citrus",
+			"name": "Small Navel",
+			"upc": "3107",
+			"count": 4
+		}
+	]
+}
