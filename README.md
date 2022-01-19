@@ -35,8 +35,11 @@ Finally, after inventorying, and reviewing, you can scan all of the products usi
 2. Input the amount of cases you inventoried
 3. Swipe up to go to the next product, or swipe down to go back
 
+### Options
+In the Options screen, you have the ability to save and load inventory files. The files are saved as JSON files to your downloads folder and can be used to share with others or used as a backup.
+
 ### Final Thoughts
-When set up properly, this tool can help easily inventory your products without wasting paper or having to flip through an order guide.
+When set up properly, this tool can help to easily and quickly inventory your products without wasting paper or having to flip through an order guide.
 
 When you're done scanning, you can always go back to the Review screen to have a clear idea of the products you scanned.
 
