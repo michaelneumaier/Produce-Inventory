@@ -342,297 +342,318 @@ class _ProductsListViewState extends State<ProductsListView> {
                             : (product.isPackaged == false &&
                                     viewPackagedOnly == true)
                                 ? Container()
-                                : Card(
-                                    color: index.isEven
-                                        ? product.isOrganic
-                                            ? Colors.lightGreen[50]
-                                            : Colors.grey[100]
-                                        : product.isOrganic
-                                            ? Colors.lightGreen[100]
-                                            : Colors.grey[200],
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        side: BorderSide(
-                                            color: Colors.blueGrey.shade200)),
-                                    elevation: 2,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      // mainAxisAlignment:
-                                      //     MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                border: Border(
-                                                    top: BorderSide(
-                                                        style:
-                                                            BorderStyle.solid,
-                                                        color: Colors
-                                                            .blueGrey.shade200,
-                                                        width: 1),
-                                                    left: BorderSide(
-                                                        style:
-                                                            BorderStyle.solid,
-                                                        color: Colors
-                                                            .blueGrey.shade200,
-                                                        width: 1),
-                                                    bottom: BorderSide(
-                                                        style:
-                                                            BorderStyle.solid,
-                                                        color: Colors
-                                                            .blueGrey.shade200,
-                                                        width: 1),
-                                                    right: BorderSide(
-                                                        style:
-                                                            BorderStyle.solid,
-                                                        color: Colors
-                                                            .blueGrey.shade200,
-                                                        width: 1)),
-                                                borderRadius:
-                                                    const BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(10),
-                                                        bottomLeft: Radius.circular(10))),
-                                            child: hasImage
-                                                ? FutureBuilder(
-                                                    future: loadImageFilePath(
-                                                        fullUpc),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      if (snapshot.hasData) {
-                                                        return Image.file(
-                                                          snapshot.data as File,
-                                                          width: 80,
-                                                          height: 80,
-                                                        );
-                                                        // snapshot.data as Widget;
-                                                      } else {
-                                                        return const SizedBox(
-                                                          width: 80,
-                                                          height: 80,
-                                                          child:
-                                                              CircularProgressIndicator(),
-                                                        );
-                                                      }
-                                                      //return Image(image: NetworkImage(snapshot.data.toString()));
-                                                    })
-                                                : ProductCategoryImage(
-                                                    product.category,
-                                                    product.upc),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 4,
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                product.isOrganic
-                                                    ? const Padding(
-                                                        padding:
-                                                            EdgeInsets.fromLTRB(
-                                                                10, 0, 0, 2),
-                                                        child: Text(
-                                                          'Organic',
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : Container(),
-                                                FittedBox(
-                                                  fit: BoxFit.contain,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10),
-                                                    child: Text(
-                                                      product.name,
-                                                      style: const TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Wrap(spacing: 20, children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10),
-                                                    child: Text(
-                                                      product.upc,
-                                                      style: const TextStyle(
-                                                          fontSize: 14),
-                                                    ),
-                                                  ),
-                                                ]),
-                                              ]),
-                                        ),
-                                        Expanded(
-                                          flex: 6,
-                                          child: FittedBox(
-                                            fit: BoxFit.contain,
-                                            child: Wrap(
-                                              spacing: -10,
-                                              alignment: WrapAlignment.end,
-                                              crossAxisAlignment:
-                                                  WrapCrossAlignment.center,
-                                              children: [
-                                                PlusMinusButton(
-                                                    widget: widget,
-                                                    index: index,
-                                                    delta: Delta.half),
-                                                PlusMinusButton(
-                                                  widget: widget,
-                                                  index: index,
-                                                  delta: Delta.minus,
-                                                ),
-                                                SizedBox(
-                                                  width: 30,
-                                                  child: FittedBox(
-                                                    fit: BoxFit.scaleDown,
-                                                    //width: 34,
-                                                    child: Text(
-                                                      product.getCount,
-                                                      //widget.snapshot.data[index]["count"].toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: const TextStyle(
-                                                          fontSize: 24),
-                                                    ),
-                                                  ),
-                                                ),
-                                                PlusMinusButton(
-                                                  widget: widget,
-                                                  index: index,
-                                                  delta: Delta.plus,
-                                                ),
-                                              ],
+                                : Container(
+                                    height: 80,
+                                    child: Card(
+                                        color: index.isEven
+                                            ? product.isOrganic
+                                                ? Colors.lightGreen[50]
+                                                : Colors.grey[100]
+                                            : product.isOrganic
+                                                ? Colors.lightGreen[100]
+                                                : Colors.grey[200],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            side: BorderSide(
+                                                color:
+                                                    Colors.blueGrey.shade200)),
+                                        elevation: 2,
+                                        child: Row(
+                                          //mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          // mainAxisAlignment:
+                                          //     MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border(
+                                                        top: BorderSide(
+                                                            style: BorderStyle
+                                                                .solid,
+                                                            color: Colors
+                                                                .blueGrey
+                                                                .shade200,
+                                                            width: 1),
+                                                        left: BorderSide(
+                                                            style: BorderStyle
+                                                                .solid,
+                                                            color: Colors
+                                                                .blueGrey
+                                                                .shade200,
+                                                            width: 1),
+                                                        bottom: BorderSide(
+                                                            style: BorderStyle
+                                                                .solid,
+                                                            color: Colors
+                                                                .blueGrey
+                                                                .shade200,
+                                                            width: 1),
+                                                        right: BorderSide(
+                                                            style: BorderStyle
+                                                                .solid,
+                                                            color: Colors
+                                                                .blueGrey
+                                                                .shade200,
+                                                            width: 1)),
+                                                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
+                                                child: hasImage
+                                                    ? FutureBuilder(
+                                                        future:
+                                                            loadImageFilePath(
+                                                                fullUpc),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          if (snapshot
+                                                              .hasData) {
+                                                            print('loaded');
+                                                            return Image.file(
+                                                              snapshot.data
+                                                                  as File,
+                                                              width: 80,
+                                                              height: 80,
+                                                            );
+                                                            // snapshot.data as Widget;
+                                                          } else {
+                                                            return const SizedBox(
+                                                              width: 80,
+                                                              height: 80,
+                                                              child:
+                                                                  CircularProgressIndicator(),
+                                                            );
+                                                          }
+                                                          //return Image(image: NetworkImage(snapshot.data.toString()));
+                                                        })
+                                                    : ProductCategoryImage(
+                                                        product.category,
+                                                        product.upc),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
+                                            Expanded(
+                                              flex: 4,
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    product.isOrganic
+                                                        ? const Padding(
+                                                            padding: EdgeInsets
+                                                                .fromLTRB(10, 0,
+                                                                    0, 2),
+                                                            child: Text(
+                                                              'Organic',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : Container(),
+                                                    FittedBox(
+                                                      fit: BoxFit.contain,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 10),
+                                                        child: Text(
+                                                          product.name,
+                                                          style: const TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Wrap(
+                                                        spacing: 20,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 10),
+                                                            child: Text(
+                                                              product.upc,
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          14),
+                                                            ),
+                                                          ),
+                                                        ]),
+                                                  ]),
+                                            ),
+                                            Expanded(
+                                              flex: 6,
+                                              child: FittedBox(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                fit: BoxFit.contain,
+                                                child: Wrap(
+                                                  spacing: -10,
+                                                  alignment: WrapAlignment.end,
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.center,
+                                                  children: [
+                                                    PlusMinusButton(
+                                                        widget: widget,
+                                                        index: index,
+                                                        delta: Delta.half),
+                                                    PlusMinusButton(
+                                                      widget: widget,
+                                                      index: index,
+                                                      delta: Delta.minus,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                      child: FittedBox(
+                                                        fit: BoxFit.scaleDown,
+                                                        //width: 34,
+                                                        child: Text(
+                                                          product.getCount,
+                                                          //widget.snapshot.data[index]["count"].toString(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 24),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    PlusMinusButton(
+                                                      widget: widget,
+                                                      index: index,
+                                                      delta: Delta.plus,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
 
-                                    // ListTile(
-                                    //   shape: RoundedRectangleBorder(
-                                    //     borderRadius: BorderRadius.circular(10.0),
-                                    //   ),
-                                    //   horizontalTitleGap: 5,
-                                    //   contentPadding:
-                                    //       const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    //   tileColor: index.isEven
-                                    //       ? isOrganic
-                                    //           ? Colors.lightGreen[100]
-                                    //           : Colors.grey[100]
-                                    //       : isOrganic
-                                    //           ? Colors.lightGreen[200]
-                                    //           : Colors.grey[200],
-                                    //   key: ValueKey(index),
-                                    //   leading: Container(
-                                    //     decoration: BoxDecoration(
-                                    //         color: Colors.white,
-                                    //         border: Border(
-                                    //             top: BorderSide(
-                                    //                 style: BorderStyle.solid,
-                                    //                 color: Colors.blueGrey.shade200,
-                                    //                 width: 1),
-                                    //             left: BorderSide(
-                                    //                 style: BorderStyle.solid,
-                                    //                 color: Colors.blueGrey.shade200,
-                                    //                 width: 1),
-                                    //             bottom: BorderSide(
-                                    //                 style: BorderStyle.solid,
-                                    //                 color: Colors.blueGrey.shade200,
-                                    //                 width: 1),
-                                    //             right: BorderSide(
-                                    //                 style: BorderStyle.solid,
-                                    //                 color: Colors.blueGrey.shade200,
-                                    //                 width: 1)),
-                                    //         borderRadius: BorderRadius.only(
-                                    //             topLeft: Radius.circular(10),
-                                    //             bottomLeft: Radius.circular(10))),
-                                    //     height: double.infinity,
-                                    //     child: ProductCategoryImage(
-                                    //         widget.snapshot.data[index]["category"],
-                                    //         widget.snapshot.data[index]['upc']),
-                                    //   ),
-                                    //   //leading: Text(widget.snapshot.data[index]["category"]),
-                                    //   title: Column(
-                                    //       crossAxisAlignment:
-                                    //           CrossAxisAlignment.start,
-                                    //       children: [
-                                    //         FittedBox(
-                                    //           fit: BoxFit.contain,
-                                    //           child: Text(
-                                    //             widget.snapshot.data[index]["name"],
-                                    //             style: const TextStyle(fontSize: 20),
-                                    //           ),
-                                    //         ),
-                                    //         const SizedBox(
-                                    //           height: 5,
-                                    //         ),
-                                    //         Wrap(spacing: 20, children: [
-                                    //           Text(
-                                    //             widget.snapshot.data[index]["upc"],
-                                    //             style: const TextStyle(fontSize: 14),
-                                    //           ),
-                                    //           isOrganic
-                                    //               ? const Text(
-                                    //                   'Organic',
-                                    //                   style: TextStyle(
-                                    //                       fontSize: 14,
-                                    //                       fontWeight:
-                                    //                           FontWeight.bold),
-                                    //                 )
-                                    //               : Container()
-                                    //         ]),
-                                    //       ]),
-                                    //   trailing: Wrap(
-                                    //     spacing: 0,
-                                    //     crossAxisAlignment: WrapCrossAlignment.center,
-                                    //     children: [
-                                    //       PlusMinusButton(
-                                    //           widget: widget,
-                                    //           index: index,
-                                    //           delta: Delta.Half),
-                                    //       PlusMinusButton(
-                                    //         widget: widget,
-                                    //         index: index,
-                                    //         delta: Delta.Minus,
-                                    //       ),
-                                    //       SizedBox(
-                                    //         width: 30,
-                                    //         child: FittedBox(
-                                    //           fit: BoxFit.scaleDown,
-                                    //           //width: 34,
-                                    //           child: Text(
-                                    //             countDouble.toString(),
-                                    //             //widget.snapshot.data[index]["count"].toString(),
-                                    //             textAlign: TextAlign.center,
-                                    //             style: const TextStyle(fontSize: 24),
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //       PlusMinusButton(
-                                    //         widget: widget,
-                                    //         index: index,
-                                    //         delta: Delta.Plus,
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
-                                    )
+                                        // ListTile(
+                                        //   shape: RoundedRectangleBorder(
+                                        //     borderRadius: BorderRadius.circular(10.0),
+                                        //   ),
+                                        //   horizontalTitleGap: 5,
+                                        //   contentPadding:
+                                        //       const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                        //   tileColor: index.isEven
+                                        //       ? isOrganic
+                                        //           ? Colors.lightGreen[100]
+                                        //           : Colors.grey[100]
+                                        //       : isOrganic
+                                        //           ? Colors.lightGreen[200]
+                                        //           : Colors.grey[200],
+                                        //   key: ValueKey(index),
+                                        //   leading: Container(
+                                        //     decoration: BoxDecoration(
+                                        //         color: Colors.white,
+                                        //         border: Border(
+                                        //             top: BorderSide(
+                                        //                 style: BorderStyle.solid,
+                                        //                 color: Colors.blueGrey.shade200,
+                                        //                 width: 1),
+                                        //             left: BorderSide(
+                                        //                 style: BorderStyle.solid,
+                                        //                 color: Colors.blueGrey.shade200,
+                                        //                 width: 1),
+                                        //             bottom: BorderSide(
+                                        //                 style: BorderStyle.solid,
+                                        //                 color: Colors.blueGrey.shade200,
+                                        //                 width: 1),
+                                        //             right: BorderSide(
+                                        //                 style: BorderStyle.solid,
+                                        //                 color: Colors.blueGrey.shade200,
+                                        //                 width: 1)),
+                                        //         borderRadius: BorderRadius.only(
+                                        //             topLeft: Radius.circular(10),
+                                        //             bottomLeft: Radius.circular(10))),
+                                        //     height: double.infinity,
+                                        //     child: ProductCategoryImage(
+                                        //         widget.snapshot.data[index]["category"],
+                                        //         widget.snapshot.data[index]['upc']),
+                                        //   ),
+                                        //   //leading: Text(widget.snapshot.data[index]["category"]),
+                                        //   title: Column(
+                                        //       crossAxisAlignment:
+                                        //           CrossAxisAlignment.start,
+                                        //       children: [
+                                        //         FittedBox(
+                                        //           fit: BoxFit.contain,
+                                        //           child: Text(
+                                        //             widget.snapshot.data[index]["name"],
+                                        //             style: const TextStyle(fontSize: 20),
+                                        //           ),
+                                        //         ),
+                                        //         const SizedBox(
+                                        //           height: 5,
+                                        //         ),
+                                        //         Wrap(spacing: 20, children: [
+                                        //           Text(
+                                        //             widget.snapshot.data[index]["upc"],
+                                        //             style: const TextStyle(fontSize: 14),
+                                        //           ),
+                                        //           isOrganic
+                                        //               ? const Text(
+                                        //                   'Organic',
+                                        //                   style: TextStyle(
+                                        //                       fontSize: 14,
+                                        //                       fontWeight:
+                                        //                           FontWeight.bold),
+                                        //                 )
+                                        //               : Container()
+                                        //         ]),
+                                        //       ]),
+                                        //   trailing: Wrap(
+                                        //     spacing: 0,
+                                        //     crossAxisAlignment: WrapCrossAlignment.center,
+                                        //     children: [
+                                        //       PlusMinusButton(
+                                        //           widget: widget,
+                                        //           index: index,
+                                        //           delta: Delta.Half),
+                                        //       PlusMinusButton(
+                                        //         widget: widget,
+                                        //         index: index,
+                                        //         delta: Delta.Minus,
+                                        //       ),
+                                        //       SizedBox(
+                                        //         width: 30,
+                                        //         child: FittedBox(
+                                        //           fit: BoxFit.scaleDown,
+                                        //           //width: 34,
+                                        //           child: Text(
+                                        //             countDouble.toString(),
+                                        //             //widget.snapshot.data[index]["count"].toString(),
+                                        //             textAlign: TextAlign.center,
+                                        //             style: const TextStyle(fontSize: 24),
+                                        //           ),
+                                        //         ),
+                                        //       ),
+                                        //       PlusMinusButton(
+                                        //         widget: widget,
+                                        //         index: index,
+                                        //         delta: Delta.Plus,
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        ),
+                                  )
                         : Container();
                   }),
                 ),

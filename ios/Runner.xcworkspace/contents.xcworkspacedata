@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/michaelneumaier/Documents/Apps/orderguide/ios/Runner/Info-Debug.plist">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/michaelneumaier/Documents/Apps/orderguide/ios/Runner/Info-Release.plist">
+   </FileRef>
+   <FileRef
       location = "group:Runner.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

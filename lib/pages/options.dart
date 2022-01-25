@@ -28,7 +28,7 @@ class _OptionsPageState extends State<OptionsPage> {
                 child: const Text('Load Order Guide')),
             ElevatedButton(
                 onPressed: () {
-                  saveFile().then((value) => ScaffoldMessenger.of(context)
+                  saveFile().whenComplete(() => ScaffoldMessenger.of(context)
                       .showSnackBar(
                           const SnackBar(content: Text('File saved!'))));
                 },

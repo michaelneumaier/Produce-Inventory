@@ -17,7 +17,12 @@ List _categories = [];
 List _products = [];
 
 Future<String> localPath() async {
-  final directory = await getApplicationDocumentsDirectory();
+  var directory;
+  if (Platform.isIOS) {
+    directory = await getApplicationSupportDirectory();
+  } else {
+    directory = await getApplicationDocumentsDirectory();
+  }
 
   return directory.path;
 }

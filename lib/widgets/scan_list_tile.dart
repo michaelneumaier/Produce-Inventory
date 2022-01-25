@@ -1,7 +1,11 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:orderguide/models/image_controller.dart';
+import 'package:orderguide/models/upc.dart';
+import 'package:orderguide/widgets/product_category_image.dart';
 
 class ScanListTile extends StatefulWidget {
   final int index;
@@ -43,6 +47,17 @@ class _ScanListTileState extends State<ScanListTile> {
       countString = '1 Case';
     } else {
       countString = '$countDouble Cases';
+    }
+
+    final fullUpc = createFullUpc(widget.product['upc']);
+    bool hasImage;
+    print(widget.product['image']);
+    if (widget.product['image'] == '') {
+      hasImage = false;
+    } else if (widget.product['image'] == null) {
+      hasImage = false;
+    } else {
+      hasImage = true;
     }
     //log(isOrganic.toString());
 
@@ -91,7 +106,7 @@ class _ScanListTileState extends State<ScanListTile> {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: Text(
                     countString,
                     style: const TextStyle(fontSize: 50),
@@ -101,10 +116,55 @@ class _ScanListTileState extends State<ScanListTile> {
               ),
               Expanded(
                 flex: 2,
+                child: hasImage
+                    ? Container(
+                        foregroundDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)),
+                        //color: Colors.black,
+                        child: FutureBuilder(
+                          future: loadImageFilePath(fullUpc),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              //return Container();
+                              return FittedBox(
+                                fit: BoxFit.contain,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      //color: Colors.black,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.file(
+                                      snapshot.data as File,
+
+                                      //width: 300,
+                                      //height: 300,
+                                      //fit: BoxFit.fitHeight,
+                                    ),
+                                  ),
+                                ),
+                              );
+                              // snapshot.data as Widget;
+                            } else {
+                              return const SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            //return Image(image: NetworkImage(snapshot.data.toString()));
+                          },
+                        ),
+                      )
+                    : ProductCategoryImage(
+                        widget.product['category'], widget.product['upc']),
+              ),
+              Expanded(
+                flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: FittedBox(
-                    fit: BoxFit.contain,
+                    fit: BoxFit.scaleDown,
                     child: Wrap(
                       children: [
                         isOrganic
@@ -117,7 +177,7 @@ class _ScanListTileState extends State<ScanListTile> {
                             : const Text(''),
                         Text(
                           widget.product['name'],
-                          style: const TextStyle(fontSize: 40),
+                          style: const TextStyle(fontSize: 50),
                         ),
                       ],
                       crossAxisAlignment: WrapCrossAlignment.center,
@@ -138,7 +198,7 @@ class _ScanListTileState extends State<ScanListTile> {
                 flex: 1,
                 child: Container(
                   alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   //color: Colors.white,
                   child: Text(
                     '${widget.index} of ${widget.itemCount}',

@@ -168,7 +168,7 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
                         return const SizedBox(
                           width: 80,
                           height: 80,
-                          child: CircularProgressIndicator(),
+                          child: FittedBox(child: CircularProgressIndicator()),
                         );
                       }
                     });

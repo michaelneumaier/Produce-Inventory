@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:external_path/external_path.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:path_provider/path_provider.dart';
 
 Future<bool> _hasAcceptedPermissions() async {
   if (Platform.isAndroid) {
@@ -42,14 +43,24 @@ Future<void> saveFile() async {
   writeFile(json);
 }
 
-Future<String> getDownloadsPath() async {
-  var path = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOADS);
+Future<dynamic> getDownloadsPath() async {
+  var path;
+  if (Platform.isAndroid) {
+    path = await ExternalPath.getExternalStoragePublicDirectory(
+        ExternalPath.DIRECTORY_DOWNLOADS);
+  } else if (Platform.isIOS) {
+    await getApplicationDocumentsDirectory()
+        .then((value) => path = value.path.toString());
+    //path = await getApplicationDocumentsDirectory();
+    log(path);
+  }
+
   return (path); // /storage/emulated/0/Pictures
 }
 
 Future<void> writeFile(Map fileToWrite) async {
   final _dirPath = await getDownloadsPath();
+
   //print(await _localPath());
   initializeDateFormatting('en', null);
   DateTime date = DateTime.now();
@@ -61,10 +72,11 @@ Future<void> writeFile(Map fileToWrite) async {
   //print(_file);
   //print(jsonEncode(fileToWrite));
   //var status = await Permission.manageExternalStorage.status;
-  if (await _hasAcceptedPermissions() == true) {
-    //print(await getDownloadsPath());
-    _jsonFile.writeAsStringSync(_file);
-  }
+  _jsonFile.writeAsStringSync(_file);
+  // if (await _hasAcceptedPermissions() == true) {
+  //   //print(await getDownloadsPath());
+
+  // }
 }
 
 Future<void> loadFile() async {
