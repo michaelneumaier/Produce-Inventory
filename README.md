@@ -2,7 +2,7 @@
 
 A produce inventory tool to count and scan backstock in a produce department.
 
-[Download Latest Version 1.0.7](https://github.com/michaelneumaier/Produce-Inventory/raw/main/order_guide1.0.7.apk)
+[![Download on the App Store](https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1643068800&h=4ca2cb3b2718c02b45957090b3a075ba)](https://apps.apple.com/us/app/produce-inventory/id1606098485?itsct=apps_box_badge&amp;itscg=30200)
 
 ## How to use
 
