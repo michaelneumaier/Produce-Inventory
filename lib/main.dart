@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:orderguide/models/inventory_controller.dart';
 
 import 'package:orderguide/pages/inventory.dart';
 import 'package:orderguide/pages/options.dart';
@@ -76,6 +77,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  late PageController _pageController;
 
   static const List<Widget> _pages = <Widget>[
     InventoryPage(),
@@ -89,17 +91,32 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       //Navigator.pop(context);
       _selectedIndex = index;
+      _pageController.jumpToPage(index);
     });
   }
 
-  void _getPrefs() async {
+  Future<void> _getPrefs() async {
     MyApp.sharedPreferences = await SharedPreferences.getInstance();
   }
+
+  // void setImageFilePath() async {
+  //   final _dirPath = await localPath();
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.
+  // }
 
   @override
   void initState() {
     super.initState();
-    _getPrefs();
+    _pageController = PageController(initialPage: _selectedIndex);
+    _getPrefs().whenComplete(() => localPath().then(
+        (value) => MyApp.sharedPreferences.setString('image_path', value)));
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -110,7 +127,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // appBar: AppBar(
         //   title: Text(widget.title),
         // ),
-        body: _pages.elementAt(_selectedIndex),
+        body: PageView(
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: _pages,
+        ), //_pages.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[

@@ -4,35 +4,11 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:orderguide/models/inventory_controller.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 import 'package:external_path/external_path.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:path_provider/path_provider.dart';
-
-Future<bool> _hasAcceptedPermissions() async {
-  if (Platform.isAndroid) {
-    if (await Permission.storage.request().isGranted &&
-        // access media location needed for android 10/Q
-        await Permission.accessMediaLocation.request().isGranted &&
-        // manage external storage needed for android 11/R
-        await Permission.manageExternalStorage.request().isGranted) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  if (Platform.isIOS) {
-    if (await Permission.photos.request().isGranted) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    // not android or ios
-    return false;
-  }
-}
 
 Future<void> saveFile() async {
   final json = await readJson();
@@ -44,7 +20,7 @@ Future<void> saveFile() async {
 }
 
 Future<dynamic> getDownloadsPath() async {
-  var path;
+  String? path;
   if (Platform.isAndroid) {
     path = await ExternalPath.getExternalStoragePublicDirectory(
         ExternalPath.DIRECTORY_DOWNLOADS);
@@ -52,7 +28,7 @@ Future<dynamic> getDownloadsPath() async {
     await getApplicationDocumentsDirectory()
         .then((value) => path = value.path.toString());
     //path = await getApplicationDocumentsDirectory();
-    log(path);
+
   }
 
   return (path); // /storage/emulated/0/Pictures

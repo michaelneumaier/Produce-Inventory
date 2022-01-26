@@ -18,22 +18,24 @@ class _OptionsPageState extends State<OptionsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            ElevatedButton(
-                onPressed: () => writeImageLocationToJson(),
-                child: const Text('Write image location to JSON')),
-            ElevatedButton(
-                onPressed: () => loadFile(),
-                child: const Text('Load Order Guide')),
-            ElevatedButton(
-                onPressed: () {
-                  saveFile().whenComplete(() => ScaffoldMessenger.of(context)
-                      .showSnackBar(
-                          const SnackBar(content: Text('File saved!'))));
-                },
-                child: const Text('Save Order Guide'))
-          ],
+        child: Center(
+          child: Column(
+            children: [
+              // ElevatedButton(
+              //     onPressed: () => writeImageLocationToJson(),
+              //     child: const Text('Write image location to JSON')),
+              ElevatedButton(
+                  onPressed: () => loadFile(),
+                  child: const Text('Load Inventory File')),
+              ElevatedButton(
+                  onPressed: () {
+                    saveFile().whenComplete(() => ScaffoldMessenger.of(context)
+                        .showSnackBar(
+                            const SnackBar(content: Text('File saved!'))));
+                  },
+                  child: const Text('Save Inventory File'))
+            ],
+          ),
         ),
       ),
     );

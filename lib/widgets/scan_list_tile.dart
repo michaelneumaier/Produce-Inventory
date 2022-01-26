@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ class ScanListTile extends StatefulWidget {
   final int index;
   final num itemCount;
   final Map product;
+  // ignore: use_key_in_widget_constructors
   const ScanListTile(this.product, this.index, this.itemCount);
 
   @override
@@ -51,7 +51,7 @@ class _ScanListTileState extends State<ScanListTile> {
 
     final fullUpc = createFullUpc(widget.product['upc']);
     bool hasImage;
-    print(widget.product['image']);
+    //print(widget.product['image']);
     if (widget.product['image'] == '') {
       hasImage = false;
     } else if (widget.product['image'] == null) {

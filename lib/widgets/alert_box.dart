@@ -6,6 +6,7 @@ class RemoveProductWidget extends StatelessWidget {
   final String name;
   final Function refresh;
 
+  // ignore: use_key_in_widget_constructors
   const RemoveProductWidget(this.id, this.name, this.refresh);
 
   @override

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:orderguide/models/category_images.dart';
 
@@ -14,7 +12,11 @@ class InventoryPage extends StatefulWidget {
   _InventoryPageState createState() => _InventoryPageState();
 }
 
-class _InventoryPageState extends State<InventoryPage> {
+class _InventoryPageState extends State<InventoryPage>
+    with AutomaticKeepAliveClientMixin<InventoryPage> {
+  @override
+  bool get wantKeepAlive => true;
+
   late List _categories;
   bool editProducts = false;
   dynamic currentInventory = [];
@@ -54,6 +56,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         drawer: const ProductsListViewDrawer(),
         onDrawerChanged: (isOpened) {
@@ -63,7 +66,8 @@ class _InventoryPageState extends State<InventoryPage> {
         },
         appBar: AppBar(
           title: const FittedBox(
-              fit: BoxFit.contain, child: Text('Produce Inventory')),
+              fit: BoxFit.contain,
+              child: Text('Produce Inventory', style: TextStyle(fontSize: 18))),
           actions: [
             if (editProducts == false)
               TextButton(
@@ -94,7 +98,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 },
                 child: const Text(
                   'Clear Counts',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ),
             if (editProducts == true)

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 import 'package:orderguide/widgets/scan_list_tile.dart';

@@ -31,9 +31,9 @@ class _ProductsListViewDrawerState extends State<ProductsListViewDrawer> {
     // });
   }
 
-  void _launchURL(url) async {
-    if (!await launch(url)) throw 'Could not launch $url';
-  }
+  // void _launchURL(url) async {
+  //   if (!await launch(url)) throw 'Could not launch $url';
+  // }
 
   @override
   void initState() {

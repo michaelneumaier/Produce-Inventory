@@ -17,7 +17,7 @@ List _categories = [];
 List _products = [];
 
 Future<String> localPath() async {
-  var directory;
+  Directory directory;
   if (Platform.isIOS) {
     directory = await getApplicationSupportDirectory();
   } else {
@@ -163,8 +163,7 @@ Future<void> addProduct(String category, String name, String upc,
   }
   //print(_products);
   //print(_categories);
-  writeJson(_products);
-  refresh!(true, true, setCategory);
+  writeJson(_products).whenComplete(() => refresh!(true, true, setCategory));
 }
 
 Future<void> writeImageLocationToJson() async {

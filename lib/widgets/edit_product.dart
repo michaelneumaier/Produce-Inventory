@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:orderguide/models/category_images.dart';
 import 'package:orderguide/models/inventory_controller.dart';
@@ -112,7 +109,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
               future: inventoryFuture,
               builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
                 if (snapshot.hasData == false) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else {
                   //final snapshotData = snapshot.data;
                   final currentProduct = snapshot.data

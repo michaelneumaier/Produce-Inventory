@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,8 +8,12 @@ import 'package:orderguide/models/image_controller.dart';
 class ProductCategoryImage extends StatefulWidget {
   final String? category;
   final String? upc;
+  final double? width;
+  final double? height;
 
-  const ProductCategoryImage(this.category, [this.upc]);
+  // ignore: use_key_in_widget_constructors
+  const ProductCategoryImage(this.category,
+      [this.upc, this.width, this.height]);
 
   @override
   State<ProductCategoryImage> createState() => _ProductCategoryImageState();
@@ -138,6 +141,18 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
       //         //return Image(image: NetworkImage(snapshot.data.toString()));
       //       });
       // }
+      late double width;
+      late double height;
+      if (widget.width == null) {
+        width = 80;
+      } else {
+        width = widget.width!;
+      }
+      if (widget.height == null) {
+        height = 80;
+      } else {
+        height = widget.height!;
+      }
       return FutureBuilder(
           future: imageExists(upcWithZeroes),
           builder: (context, snapshot) {
@@ -155,20 +170,22 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
                           return Image.asset(
                             product['image'] as String,
                             //scale: 11,
-                            width: 80,
-                            height: 80,
+                            width: width,
+                            height: height,
                           );
                         }
                         return Image(
-                            image: NetworkImage(imageUrl),
-                            width: 80,
-                            height: 80);
+                          image: NetworkImage(imageUrl),
+                          width: width,
+                          height: height,
+                        );
                       } else {
                         //print('loading image');
-                        return const SizedBox(
-                          width: 80,
-                          height: 80,
-                          child: FittedBox(child: CircularProgressIndicator()),
+                        return SizedBox(
+                          width: width,
+                          height: height,
+                          child: const FittedBox(
+                              child: CircularProgressIndicator()),
                         );
                       }
                     });
@@ -181,25 +198,25 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
                       if (snapshot.hasData) {
                         return Image.file(
                           snapshot.data as File,
-                          width: 80,
-                          height: 80,
+                          width: width,
+                          height: height,
                         );
                         // snapshot.data as Widget;
                       } else {
-                        return const SizedBox(
-                          width: 80,
-                          height: 80,
-                          child: CircularProgressIndicator(),
+                        return SizedBox(
+                          width: width,
+                          height: height,
+                          child: const CircularProgressIndicator(),
                         );
                       }
                       //return Image(image: NetworkImage(snapshot.data.toString()));
                     });
               }
             } else {
-              return const SizedBox(
-                width: 80,
-                height: 80,
-                child: CircularProgressIndicator(),
+              return SizedBox(
+                width: width,
+                height: height,
+                child: const CircularProgressIndicator(),
               );
             }
 
@@ -216,28 +233,29 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
                           return Image.asset(
                             product['image'] as String,
                             //scale: 11,
-                            width: 80,
-                            height: 80,
+                            width: width,
+                            height: height,
                           );
                         }
                         return Image(
-                            image: NetworkImage(imageUrl),
-                            width: 80,
-                            height: 80);
+                          image: NetworkImage(imageUrl),
+                          width: width,
+                          height: height,
+                        );
                       } else {
                         //print('loading image');
-                        return const SizedBox(
-                          width: 80,
-                          height: 80,
+                        return SizedBox(
+                          width: width,
+                          height: height,
                           child: CircularProgressIndicator(),
                         );
                       }
                     });
               } else {
-                return const SizedBox(
-                  width: 80,
-                  height: 80,
-                  child: CircularProgressIndicator(),
+                return SizedBox(
+                  width: width,
+                  height: height,
+                  child: const CircularProgressIndicator(),
                 );
               }
             } else if (snapshot.data.toString() == 'true') {
@@ -249,15 +267,15 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
                     if (snapshot.hasData) {
                       return Image.file(
                         snapshot.data as File,
-                        width: 80,
-                        height: 80,
+                        width: widget.width,
+                        height: widget.height,
                       );
                       // snapshot.data as Widget;
                     } else {
-                      return const SizedBox(
-                        width: 80,
-                        height: 80,
-                        child: CircularProgressIndicator(),
+                      return SizedBox(
+                        width: width,
+                        height: height,
+                        child: const CircularProgressIndicator(),
                       );
                     }
                     //return Image(image: NetworkImage(snapshot.data.toString()));
@@ -270,16 +288,16 @@ class _ProductCategoryImageState extends State<ProductCategoryImage> {
               return Image.asset(
                 product['image'] as String,
                 //scale: 11,
-                width: 80,
-                height: 80,
+                width: width,
+                height: height,
               );
             } else {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: CachedNetworkImage(
                   imageUrl: imageUrl,
-                  width: 80,
-                  height: 80,
+                  width: width,
+                  height: height,
                 ),
               );
             }
