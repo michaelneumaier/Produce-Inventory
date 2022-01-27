@@ -39,6 +39,7 @@ class _ScanListViewState extends State<ScanListView> {
                         children: [
                           const Text(
                             'No products were counted.',
+                            textScaleFactor: 1,
                             style: TextStyle(fontSize: 24),
                           ),
                           const SizedBox(

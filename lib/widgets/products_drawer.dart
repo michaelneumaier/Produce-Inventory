@@ -63,7 +63,10 @@ class _ProductsListViewDrawerState extends State<ProductsListViewDrawer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Text('Show Only Organic Products'),
+                      const Text(
+                        'Show Only Organic Products',
+                        textScaleFactor: 1,
+                      ),
                       Checkbox(
                         value: organicCheckboxValue,
                         onChanged: (value) {
@@ -78,7 +81,10 @@ class _ProductsListViewDrawerState extends State<ProductsListViewDrawer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Text('Show Only Packaged Products'),
+                      const Text(
+                        'Show Only Packaged Products',
+                        textScaleFactor: 1,
+                      ),
                       Checkbox(
                         value: viewOnlyPackagedValue,
                         onChanged: (value) {

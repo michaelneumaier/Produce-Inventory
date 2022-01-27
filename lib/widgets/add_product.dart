@@ -141,6 +141,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     final categoryValues = categoriesWithImages;
     //print(categoryValues);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

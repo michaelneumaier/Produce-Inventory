@@ -100,7 +100,7 @@ class _ScanListTileState extends State<ScanListTile> {
         //         : Colors.blueGrey[50],
         child: Center(
           child: Column(
-            //mainAxisSize: MainAxisSize.max,
+            //mainAxisSize: MainAxisSize.,
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
@@ -170,6 +170,7 @@ class _ScanListTileState extends State<ScanListTile> {
                         isOrganic
                             ? const Text(
                                 'Organic',
+                                textScaleFactor: 1,
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
@@ -177,6 +178,7 @@ class _ScanListTileState extends State<ScanListTile> {
                             : const Text(''),
                         Text(
                           widget.product['name'],
+                          textScaleFactor: 1,
                           style: const TextStyle(fontSize: 50),
                         ),
                       ],
@@ -202,6 +204,7 @@ class _ScanListTileState extends State<ScanListTile> {
                   //color: Colors.white,
                   child: Text(
                     '${widget.index} of ${widget.itemCount}',
+                    textScaleFactor: 1,
                     style: const TextStyle(fontSize: 30),
                   ),
                 ),

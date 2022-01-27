@@ -56,6 +56,7 @@ class _ReviewListViewState extends State<ReviewListView> {
                         children: [
                           const Text(
                             'No products were counted.',
+                            textScaleFactor: 1,
                             style: TextStyle(fontSize: 24),
                           ),
                           const SizedBox(
@@ -161,9 +162,10 @@ class _ReviewListViewState extends State<ReviewListView> {
                                 //   color: Theme.of(context).errorColor,
                                 // ),
                                 SizedBox(
-                                  width: 30,
+                                  width: 50,
                                   child: Text(
                                     product.getCount,
+                                    //textScaleFactor: 1,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(fontSize: 18),
                                   ),

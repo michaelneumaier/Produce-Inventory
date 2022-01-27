@@ -85,6 +85,7 @@ class _ProductsListViewState extends State<ProductsListView> {
           padding: EdgeInsets.only(left: 10),
           child: Text(
             'All Products',
+            textScaleFactor: 1,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ));
@@ -106,6 +107,7 @@ class _ProductsListViewState extends State<ProductsListView> {
               const SizedBox(width: 5),
               Text(
                 e['name'].toString(),
+                textScaleFactor: 1,
               ),
             ])))
         .toList();
@@ -253,26 +255,32 @@ class _ProductsListViewState extends State<ProductsListView> {
                                     fit: BoxFit.contain,
                                     child: Text(
                                       product.name,
+                                      textScaleFactor: 1,
                                       style: const TextStyle(fontSize: 20),
                                     ),
                                   ),
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Wrap(spacing: 20, children: [
-                                    Text(
-                                      product.upc,
-                                      style: const TextStyle(fontSize: 14),
-                                    ),
-                                    product.isOrganic
-                                        ? const Text(
-                                            'Organic',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : Container()
-                                  ]),
+                                  FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: Wrap(spacing: 20, children: [
+                                      Text(
+                                        product.upc,
+                                        textScaleFactor: 1,
+                                        style: const TextStyle(fontSize: 14),
+                                      ),
+                                      product.isOrganic
+                                          ? const Text(
+                                              'Organic',
+                                              textScaleFactor: 1,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          : Container()
+                                    ]),
+                                  ),
                                 ]),
                             trailing: Wrap(
                               spacing: -10,
@@ -456,27 +464,32 @@ class _ProductsListViewState extends State<ProductsListView> {
                                               MainAxisAlignment.center,
                                           children: [
                                             product.isOrganic
-                                                ? const Padding(
-                                                    padding:
-                                                        EdgeInsets.fromLTRB(
-                                                            10, 0, 0, 2),
-                                                    child: Text(
-                                                      'Organic',
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                ? const FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              10, 0, 0, 2),
+                                                      child: Text(
+                                                        'Organic',
+                                                        textScaleFactor: 1,
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
                                                     ),
                                                   )
                                                 : Container(),
                                             FittedBox(
-                                              fit: BoxFit.contain,
+                                              fit: BoxFit.scaleDown,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 10),
                                                 child: Text(
                                                   product.name,
+                                                  textScaleFactor: 1,
                                                   maxLines: 2,
                                                   style: const TextStyle(
                                                       fontSize: 16,
@@ -485,20 +498,29 @@ class _ProductsListViewState extends State<ProductsListView> {
                                                 ),
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Wrap(spacing: 20, children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
-                                                child: Text(
-                                                  product.upc,
-                                                  style: const TextStyle(
-                                                      fontSize: 14),
+                                            // const SizedBox(
+                                            //   height: 5,
+                                            // ),
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child:
+                                                  Wrap(spacing: 20, children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10),
+                                                  child: FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                      product.upc,
+                                                      textScaleFactor: 1,
+                                                      style: const TextStyle(
+                                                          fontSize: 14),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ]),
+                                              ]),
+                                            ),
                                           ]),
                                     ),
                                     Expanded(
@@ -530,6 +552,7 @@ class _ProductsListViewState extends State<ProductsListView> {
                                                   product.getCount,
                                                   //widget.snapshot.data[index]["count"].toString(),
                                                   textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
                                                   style: const TextStyle(
                                                       fontSize: 24),
                                                 ),

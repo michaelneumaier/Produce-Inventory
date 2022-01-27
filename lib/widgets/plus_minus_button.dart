@@ -50,6 +50,7 @@ class PlusMinusButton extends StatelessWidget {
           _delta = 0.5;
           icon = const Text(
             '+½',
+            textScaleFactor: 1,
             style: TextStyle(fontSize: 20),
           );
           iconColors.addAll({
@@ -60,6 +61,7 @@ class PlusMinusButton extends StatelessWidget {
           _delta = -0.5;
           icon = const Text(
             '-½',
+            textScaleFactor: 1,
             style: TextStyle(fontSize: 20),
           );
           iconColors.addAll({
