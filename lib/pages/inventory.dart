@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orderguide/main.dart';
 import 'package:orderguide/models/category_images.dart';
 
 import 'package:orderguide/models/inventory_controller.dart';
@@ -61,7 +62,13 @@ class _InventoryPageState extends State<InventoryPage>
         drawer: const ProductsListViewDrawer(),
         onDrawerChanged: (isOpened) {
           if (isOpened == false) {
-            setState(() {});
+            setState(() {
+              if (MyApp.sharedPreferences.getBool('loaded_new_inventory') ==
+                  true) {
+                inventoryFuture = InventoryData().readProducts();
+                MyApp.sharedPreferences.setBool('loaded_new_inventory', false);
+              }
+            });
           }
         },
         appBar: AppBar(

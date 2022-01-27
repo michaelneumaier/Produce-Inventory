@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 import 'package:orderguide/models/products.dart';
+import 'package:orderguide/models/upc.dart';
 import 'package:orderguide/widgets/product_category_image.dart';
+
+import '../main.dart';
 
 class ReviewListView extends StatefulWidget {
   const ReviewListView({Key? key}) : super(key: key);
@@ -22,6 +27,7 @@ class _ReviewListViewState extends State<ReviewListView> {
 
   @override
   Widget build(BuildContext context) {
+    final imagePath = MyApp.sharedPreferences.getString('image_path');
     return FutureBuilder(
         future: productsFuture,
         builder: (context, AsyncSnapshot snapshot) {
@@ -81,17 +87,28 @@ class _ReviewListViewState extends State<ReviewListView> {
                         if (snapshotData['image'] != null) {
                           hasImage = true;
                         }
+                        bool isOrganic = false;
+                        if (snapshotData['organic'] == true) {
+                          isOrganic = true;
+                        }
                         Product product = Product(
                             id: snapshotData['id'] as int,
                             category: snapshotData['category'],
                             name: snapshotData['name'],
                             image: hasImage ? snapshotData['image'] : '',
                             upc: snapshotData['upc'] as String,
+                            organic: isOrganic,
                             count: count.toDouble(),
                             visible: isVisible!);
                         //End Product Instantiation
                         //print(index);
-
+                        String fullUpc = createFullUpc(product.upc);
+                        final imageFilePath = File('$imagePath/$fullUpc');
+                        final imageFile = Image.file(
+                          imageFilePath,
+                          width: 80,
+                          height: 80,
+                        );
                         return Card(
                           child: ListTile(
                             horizontalTitleGap: 0,
@@ -105,7 +122,10 @@ class _ReviewListViewState extends State<ReviewListView> {
                                     ? Colors.lightGreen[200]
                                     : Colors.grey[200],
                             key: ValueKey(index),
-                            leading: ProductCategoryImage(product.category),
+                            leading: imageFilePath.existsSync()
+                                ? imageFile
+                                : ProductCategoryImage(
+                                    product.category, product.upc),
                             //leading: Text(widget.snapshot.data[index]["category"]),
                             title: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

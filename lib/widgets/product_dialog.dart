@@ -15,12 +15,13 @@ class ProductDialog extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Wrap(
-          //alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
           runAlignment: WrapAlignment.center,
           direction: Axis.vertical,
           children: [
-            ProductCategoryImage(product.category, product.upc, 200, 200),
-            FittedBox(
+            ProductCategoryImage(product.category, product.upc, 150, 150),
+            SizedBox(
+              width: 300,
               child: Text(
                 product.name,
                 style:
@@ -28,7 +29,7 @@ class ProductDialog extends StatelessWidget {
               ),
             ),
             if (product.isOrganic == true)
-              Text(
+              const Text(
                 'Organic',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),

@@ -87,7 +87,7 @@ Future<void> writeData(String fileToWrite) async {
 }
 
 Future<void> updateProduct(int id, String category, String name, String upc,
-    Function? refresh, String? setCategory) async {
+    bool isOrganic, Function? refresh, String? setCategory) async {
   final _readJson = await readJson();
   _products = _readJson['products'];
   final currentProductIndex =
@@ -96,6 +96,7 @@ Future<void> updateProduct(int id, String category, String name, String upc,
   _products[currentProductIndex]['category'] = category;
   _products[currentProductIndex]['name'] = name;
   _products[currentProductIndex]['upc'] = upc;
+  _products[currentProductIndex]['is_organic'] = isOrganic;
   _products[currentProductIndex]['image'] = '';
   writeJson(_products);
   refresh!(true, true, setCategory);
@@ -110,7 +111,8 @@ Future<void> writeJson(List products) async {
   await writeData(json);
 }
 
-Future<void> addProduct(String category, String name, String upc,
+Future<void> addProduct(
+    String category, String name, String upc, bool isOrganic,
     [Function? refresh, String? setCategory]) async {
   final _readJson = await readJson();
   _products = _readJson['products'];
@@ -150,6 +152,7 @@ Future<void> addProduct(String category, String name, String upc,
     "category": category,
     "name": name,
     "upc": upc,
+    "is_organic": isOrganic,
     "count": 0
   };
   final lastProductCategoryIndex =

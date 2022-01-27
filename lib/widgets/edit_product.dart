@@ -115,6 +115,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
                   final currentProduct = snapshot.data
                       ?.firstWhere((element) => element['id'] == widget.id);
                   upcController.text = currentProduct['upc'];
+                  print(currentProduct['is_organic']);
                   return Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,6 +145,24 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
                                   child: FormBuilderTextField(
                                     controller: upcController,
                                     name: 'upc',
+
+                                    onChanged: (value) {
+                                      if (value!.startsWith('9')) {
+                                        setState(() {
+                                          _formKey.currentState!
+                                              .fields['is_organic']
+                                              ?.didChange(true);
+                                        });
+
+                                        //print('upc starts with 9');
+                                      } else if (value == '') {
+                                        setState(() {
+                                          _formKey.currentState!
+                                              .fields['is_organic']
+                                              ?.didChange(false);
+                                        });
+                                      }
+                                    },
                                     //initialValue: currentProduct['upc'],
                                     decoration:
                                         const InputDecoration(labelText: 'UPC'),
@@ -181,6 +200,15 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
                                 )
                               ],
                             ),
+                            FormBuilderCheckbox(
+                                name: 'is_organic',
+                                initialValue:
+                                    (currentProduct['is_organic'] == null)
+                                        ? false
+                                        : (currentProduct['is_organic'] == true)
+                                            ? true
+                                            : false,
+                                title: const Text('Product is Organic')),
 
                             //_categories
                             FormBuilderDropdown(
@@ -247,6 +275,7 @@ class _EditProductBottomSheetState extends State<EditProductBottomSheet> {
                                     _formKey.currentState!.value['category'],
                                     _formKey.currentState!.value['name'],
                                     _formKey.currentState!.value['upc'],
+                                    _formKey.currentState!.value['is_organic'],
                                     widget.refresh,
                                     widget.setCategory);
 

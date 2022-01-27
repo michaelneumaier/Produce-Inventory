@@ -20,7 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:path_provider/path_provider.dart';
 
 //import 'models/inventory_controller.dart';
-void main() async {
+void main() {
   //MyApp.sharedPreferences = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //CategoriesPage(),
     ReviewPage(),
     ScanPage(),
-    OptionsPage()
+    //OptionsPage()
   ];
 
   void _onItemTapped(int index) {
@@ -151,10 +151,10 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.qr_code_scanner),
               label: 'Scan',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Options',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.settings),
+            //   label: 'Options',
+            // ),
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,

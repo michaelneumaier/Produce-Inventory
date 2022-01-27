@@ -159,6 +159,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     FormBuilderTextField(
                       name: 'name',
                       decoration: const InputDecoration(labelText: 'Name'),
+                      textCapitalization: TextCapitalization.words,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(context),
                       ]),
@@ -171,6 +172,21 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                           child: FormBuilderTextField(
                             controller: upcController,
                             name: 'upc',
+                            onChanged: (value) {
+                              if (value!.startsWith('9')) {
+                                setState(() {
+                                  _formKey.currentState!.fields['is_organic']
+                                      ?.didChange(true);
+                                });
+
+                                //print('upc starts with 9');
+                              } else if (value == '') {
+                                setState(() {
+                                  _formKey.currentState!.fields['is_organic']
+                                      ?.didChange(false);
+                                });
+                              }
+                            },
                             decoration: const InputDecoration(labelText: 'UPC'),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(context),
@@ -206,6 +222,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         )
                       ],
                     ),
+                    FormBuilderCheckbox(
+                        name: 'is_organic',
+                        title: const Text('Product is Organic')),
 
                     //_categories
                     FormBuilderDropdown(
@@ -268,6 +287,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                           _formKey.currentState!.value['category'],
                           _formKey.currentState!.value['name'],
                           _formKey.currentState!.value['upc'],
+                          _formKey.currentState!.value['is_organic'],
                           widget.refresh,
                           //widget.setCategory
                         ).whenComplete(() {

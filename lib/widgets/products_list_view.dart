@@ -167,6 +167,7 @@ class _ProductsListViewState extends State<ProductsListView> {
 
                     var snapshotData = widget.snapshot.data[index];
                     bool? isVisible;
+
                     if (snapshotData['visible'] != null) {
                       isVisible = snapshotData['visible'];
                     } else {
@@ -177,12 +178,18 @@ class _ProductsListViewState extends State<ProductsListView> {
                     if (snapshotData['image'] != null) {
                       hasImage = true;
                     }
+                    bool isOrganic = false;
+                    if (snapshotData['is_organic'] == true) {
+                      isOrganic = true;
+                    }
+
                     Product product = Product(
                         id: snapshotData['id'] as int,
                         category: snapshotData['category'],
                         name: snapshotData['name'],
                         image: hasImage ? snapshotData['image'] : '',
                         upc: snapshotData['upc'] as String,
+                        organic: isOrganic,
                         count: count.toDouble(),
                         visible: isVisible!);
                     //End Product Instantiation
@@ -331,20 +338,25 @@ class _ProductsListViewState extends State<ProductsListView> {
                       hasImage = true;
                     }
 
+                    bool isOrganic = false;
+                    if (snapshotData['is_organic'] == true) {
+                      isOrganic = true;
+                    }
+
                     final product = Product(
                         id: snapshotData['id'] as int,
                         category: snapshotData['category'],
                         name: snapshotData['name'],
                         image: hasImage ? snapshotData['image'] : '',
                         upc: snapshotData['upc'] as String,
+                        organic: isOrganic,
                         count: count.toDouble(),
                         visible: isVisible);
                     //End Product Instantiation
                     //bool isOrganic = false;
 
                     //bool isVisible = true;
-                    String fullUpc =
-                        createFullUpc(widget.snapshot.data[index]['upc']);
+                    String fullUpc = createFullUpc(product.upc);
                     //print(widget.snapshot.data[index]["image"]);
                     // if (widget.snapshot.data[index]["upc"][0] == "9") {
                     //   isOrganic = true;

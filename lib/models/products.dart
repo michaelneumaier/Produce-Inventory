@@ -4,6 +4,7 @@ class Product {
   String category;
   String image;
   String upc;
+  bool organic;
   double count;
   bool visible;
 
@@ -13,11 +14,14 @@ class Product {
       required this.category,
       required this.image,
       required this.upc,
+      required this.organic,
       required this.count,
       required this.visible});
 
   bool get isOrganic {
     if (upc.toString()[0] == "9") {
+      return true;
+    } else if (organic == true) {
       return true;
     } else {
       return false;

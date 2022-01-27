@@ -36,7 +36,7 @@ Future<dynamic> getDownloadsPath() async {
 
 Future<void> writeFile(Map fileToWrite) async {
   final _dirPath = await getDownloadsPath();
-
+  print(_dirPath);
   //print(await _localPath());
   initializeDateFormatting('en', null);
   DateTime date = DateTime.now();
