@@ -2,7 +2,8 @@
 
 A produce inventory tool to count and scan backstock in a produce department.
 
-[![Download on the App Store](https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1643068800&h=4ca2cb3b2718c02b45957090b3a075ba)](https://apps.apple.com/us/app/produce-inventory/id1606098485?itsct=apps_box_badge&amp;itscg=30200)
+<a href="https://github.com/Volorf/Badges/raw/master/App%20Store/App%20Store%20Badge.png"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1643068800&h=4ca2cb3b2718c02b45957090b3a075ba" height="60"/></a>
+<a href="https://play.google.com/store/apps/details?id=com.michaelneumaier.orderguide&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img src="https://github.com/Volorf/Badges/raw/master/Google%20Play/Google%20Play%20Badge.png" height=60/></a>
 
 [Download Latest Inventory File](https://github.com/michaelneumaier/Produce-Inventory/raw/main/inventory012522.json). You must right-click or long press to save file.
 
