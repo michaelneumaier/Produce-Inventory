@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:orderguide/models/inventory_controller.dart';
 import 'package:orderguide/models/products.dart';
 import 'package:orderguide/models/upc.dart';
+import 'package:orderguide/widgets/alert_box.dart';
 import 'package:orderguide/widgets/product_category_image.dart';
 
 import '../main.dart';
@@ -16,13 +17,24 @@ class ReviewListView extends StatefulWidget {
 }
 
 class _ReviewListViewState extends State<ReviewListView> {
-  final productsFuture = InventoryData().readProducts();
+  late Future productsFuture;
   var itemCount = 0;
   var products = [];
   bool productsCounted = false;
-  void refreshInventoryWidget() {
-    //log('refresh');
-    setState(() {});
+  void refreshInventoryWidget() async {
+    setState(() {
+      print('refresh');
+      itemCount = 0;
+      products = [];
+      productsCounted = false;
+      productsFuture = InventoryData().readProducts();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    productsFuture = InventoryData().readProducts();
   }
 
   @override
@@ -32,7 +44,7 @@ class _ReviewListViewState extends State<ReviewListView> {
         future: productsFuture,
         builder: (context, AsyncSnapshot snapshot) {
           //if (snapshot.hasError) log(snapshot.error.toString());
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.done) {
             snapshot.data.forEach((element) {
               if (element['count'] > 0 &&
                   element['visible'] != false &&
@@ -48,7 +60,7 @@ class _ReviewListViewState extends State<ReviewListView> {
             //log(itemCount.toString());
           }
 
-          return snapshot.hasData
+          return snapshot.connectionState == ConnectionState.done
               ? itemCount == 0
                   ? Center(
                       child: Column(
@@ -151,6 +163,17 @@ class _ReviewListViewState extends State<ReviewListView> {
                               spacing: -10,
                               crossAxisAlignment: WrapCrossAlignment.center,
                               children: [
+                                IconButton(
+                                  onPressed: () => showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              RemoveProductReviewWidget(
+                                                  product.id, product.name))
+                                      .whenComplete(
+                                          () => refreshInventoryWidget()),
+                                  icon: const Icon(Icons.delete),
+                                  color: Theme.of(context).errorColor,
+                                ),
                                 // IconButton(
                                 //   onPressed: () => showDialog(
                                 //       context: context,

@@ -78,9 +78,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   late PageController _pageController;
-
+  static const _inventoryPage = InventoryPage();
   static const List<Widget> _pages = <Widget>[
-    InventoryPage(),
+    _inventoryPage,
     //CategoriesPage(),
     ReviewPage(),
     ScanPage(),
@@ -89,6 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onItemTapped(int index) {
     setState(() {
+      if (index == 0) {
+        _inventoryPage.refresh();
+      }
       //Navigator.pop(context);
       _selectedIndex = index;
       _pageController.jumpToPage(index);

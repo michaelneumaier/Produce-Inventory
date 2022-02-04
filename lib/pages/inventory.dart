@@ -9,8 +9,13 @@ import 'package:orderguide/widgets/products_list_view.dart';
 class InventoryPage extends StatefulWidget {
   const InventoryPage({Key? key}) : super(key: key);
 
+  static final _inventoryPageStateConst = _InventoryPageState();
+  void refresh() {
+    _inventoryPageStateConst.refreshInventoryWidget(null, true);
+  }
+
   @override
-  _InventoryPageState createState() => _InventoryPageState();
+  _InventoryPageState createState() => _inventoryPageStateConst;
 }
 
 class _InventoryPageState extends State<InventoryPage>
@@ -20,23 +25,26 @@ class _InventoryPageState extends State<InventoryPage>
 
   late List _categories;
   bool editProducts = false;
+  bool rebuildFuture = false;
   dynamic currentInventory = [];
   //late var viewProductsListViewKey;
   late String setCategory = 'all';
   late Future inventoryFuture;
+  ProductsListView? inventoryFutureSnapshot;
+
   void refreshInventoryWidget(
-      [bool? keepEditProducts, bool? fullRefersh, String? category]) {
+      [bool? keepEditProducts, bool? fullRefresh, String? category]) {
     //log('refresh');
     //inventoryFuture = InventoryData().readProducts();
     setState(() {
       if (keepEditProducts != null) {
         editProducts = keepEditProducts;
       }
+      if (fullRefresh == true) {
+        inventoryFuture = InventoryData().readProducts();
+      }
       if (category != null) {
         setCategory = category;
-      }
-      if (fullRefersh == true) {
-        inventoryFuture = InventoryData().readProducts();
       }
     });
   }
@@ -129,10 +137,14 @@ class _InventoryPageState extends State<InventoryPage>
               onPressed: () => setState(() {
                 if (editProducts == false) {
                   editProducts = true;
+
                   refreshInventoryWidget(true, true);
+                  rebuildFuture = true;
                 } else {
                   editProducts = false;
+
                   refreshInventoryWidget(false, true);
+                  rebuildFuture = true;
                   //resetEditProductsListViewKey();
                 }
               }),
@@ -152,7 +164,8 @@ class _InventoryPageState extends State<InventoryPage>
                     builder: (context, AsyncSnapshot snapshot) {
                       //if (snapshot.hasError) log(snapshot.error.toString());
                       if (snapshot.connectionState == ConnectionState.done) {
-                        return ProductsListView(
+                        //inventoryFutureSnapshot = null;
+                        inventoryFutureSnapshot = ProductsListView(
                             categories: _categories,
                             snapshot: snapshot,
                             refresh: refreshInventoryWidget,
@@ -162,9 +175,26 @@ class _InventoryPageState extends State<InventoryPage>
                             // viewProductsListViewKey: ,
                             // editProductsListViewKey:
                             );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
+
+                        return inventoryFutureSnapshot!;
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.active) {
+                        if (inventoryFutureSnapshot != null) {
+                          return inventoryFutureSnapshot!;
+                        }
                       }
+
+                      if (inventoryFutureSnapshot != null) {
+                        print('snapshot not null');
+                        if (rebuildFuture == true) {
+                          rebuildFuture = false;
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        return inventoryFutureSnapshot!;
+                      }
+                      return const Center(child: CircularProgressIndicator());
+
                       // return snapshot.hasData
                       //     ? ProductsListView(
                       //         categories: _categories,

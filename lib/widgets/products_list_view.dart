@@ -198,8 +198,7 @@ class _ProductsListViewState extends State<ProductsListView> {
                     //print(index);
 
                     if ((categoryFilter == product.category ||
-                            categoryFilter == 'all') &&
-                        isVisible) {
+                        categoryFilter == 'all')) {
                       if (product.isOrganic == false &&
                           viewOrganicOnly == true) {
                         return Container(

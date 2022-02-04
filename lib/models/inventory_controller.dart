@@ -294,6 +294,17 @@ Future<void> clearCounts() async {
   await writeJson(_products);
 }
 
+Future<void> clearProductCount(id) async {
+  final _readJson = await readJson();
+
+  _products = _readJson['products'];
+
+  final product = _products.singleWhere((element) => element['id'] == id);
+  product['count'] = 0;
+
+  await writeJson(_products);
+}
+
 class InventoryData {
   //StreamController _controller = StreamController<List>();
   //List categories;

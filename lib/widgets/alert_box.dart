@@ -29,3 +29,31 @@ class RemoveProductWidget extends StatelessWidget {
     );
   }
 }
+
+class RemoveProductReviewWidget extends StatelessWidget {
+  final int id;
+  final String name;
+
+  // ignore: use_key_in_widget_constructors
+  const RemoveProductReviewWidget(this.id, this.name);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Are you sure you want to clear $name?'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () {
+            clearProductCount(id)
+                .whenComplete(() => Navigator.pop(context, 'OK'));
+          },
+          child: const Text('Delete'),
+        ),
+      ],
+    );
+  }
+}

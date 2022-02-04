@@ -140,175 +140,181 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     //log(widget.setCategory!);
     final categoryValues = categoriesWithImages;
     //print(categoryValues);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FormBuilder(
-                key: _formKey,
-                //autovalidateMode: AutovalidateMode.always,
-                child: Column(
-                  children: [
-                    const Text('Add Product',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20)),
-                    FormBuilderTextField(
-                      name: 'name',
-                      decoration: const InputDecoration(labelText: 'Name'),
-                      textCapitalization: TextCapitalization.words,
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(context),
-                      ]),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: FormBuilderTextField(
-                            controller: upcController,
-                            name: 'upc',
-                            onChanged: (value) {
-                              if (value!.startsWith('9')) {
-                                setState(() {
-                                  _formKey.currentState!.fields['is_organic']
-                                      ?.didChange(true);
-                                });
-
-                                //print('upc starts with 9');
-                              } else if (value == '') {
-                                setState(() {
-                                  _formKey.currentState!.fields['is_organic']
-                                      ?.didChange(false);
-                                });
-                              }
-                            },
-                            decoration: const InputDecoration(labelText: 'UPC'),
-                            validator: FormBuilderValidators.compose([
-                              FormBuilderValidators.required(context),
-                              FormBuilderValidators.numeric(context),
-                            ]),
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(13),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  scanBarcodeNormal().then((value) {
-                                    setState(() {
-                                      upcController.text = '';
-                                      if (value != '-1') {
-                                        upcController.text = value;
-                                      }
-
-                                      //_formKey.currentState?.value['upc'] = value;
-                                      //scannedBarcode = value;
-                                    });
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FormBuilder(
+                  key: _formKey,
+                  //autovalidateMode: AutovalidateMode.always,
+                  child: Column(
+                    children: [
+                      const Text('Add Product',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      FormBuilderTextField(
+                        name: 'name',
+                        decoration: const InputDecoration(labelText: 'Name'),
+                        textCapitalization: TextCapitalization.words,
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(context),
+                        ]),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FormBuilderTextField(
+                              controller: upcController,
+                              name: 'upc',
+                              onChanged: (value) {
+                                if (value!.startsWith('9')) {
+                                  setState(() {
+                                    _formKey.currentState!.fields['is_organic']
+                                        ?.didChange(true);
                                   });
-                                },
-                                child: const Text('Scan Barcode')),
+
+                                  //print('upc starts with 9');
+                                } else if (value == '') {
+                                  setState(() {
+                                    _formKey.currentState!.fields['is_organic']
+                                        ?.didChange(false);
+                                  });
+                                }
+                              },
+                              decoration:
+                                  const InputDecoration(labelText: 'UPC'),
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(context),
+                                FormBuilderValidators.numeric(context),
+                              ]),
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(13),
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              keyboardType: TextInputType.number,
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                    FormBuilderCheckbox(
-                        name: 'is_organic',
-                        title: const Text('Product is Organic')),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    scanBarcodeNormal().then((value) {
+                                      setState(() {
+                                        upcController.text = '';
+                                        if (value != '-1') {
+                                          upcController.text = value;
+                                        }
 
-                    //_categories
-                    FormBuilderDropdown(
-                      name: 'category',
-                      hint: const Text('Select Category'),
-                      validator: FormBuilderValidators.compose(
-                          [FormBuilderValidators.required(context)]),
-                      //items: [DropdownMenuItem(child: Text('Apples'))],
-                      // items: widget.categories
-                      //     .map((e) => DropdownMenuItem(
-                      //           child: Text(e.toString()),
-                      //           value: e.toString(),
-                      //         ))
-                      //     .toList(),
-                      items: categoryValues
-                          .map((e) => DropdownMenuItem(
-                              value: e['name'],
-                              child: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 40,
-                                      height: 30,
-                                      child: ProductCategoryImage(
-                                          e['name'].toString()),
-                                      // child: FaIcon(
-                                      //   e['icon'] as IconData,
-                                      //   color: e['color'] as Color,
-                                      // ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      e['name'].toString(),
-                                    ),
-                                  ])))
-                          .toList(),
-                      // items: widget.categories
-                      //     .map((e) => DropdownMenuItem(
-                      //         value: e['name'], child: Text(e['name'])))
-                      //     .toList(),
-                    ),
-                  ],
-                ),
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Expanded(
-                  child: ElevatedButton(
-                      child: const Text('Cancel'),
-                      style: ElevatedButton.styleFrom(primary: Colors.grey),
-                      onPressed: () => Navigator.pop(context)),
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: ElevatedButton(
-                    child: const Text('Submit'),
-                    onPressed: () {
-                      _formKey.currentState?.save();
-                      if (_formKey.currentState!.validate()) {
-                        addProduct(
-                          _formKey.currentState!.value['category'],
-                          _formKey.currentState!.value['name'],
-                          _formKey.currentState!.value['upc'],
-                          _formKey.currentState!.value['is_organic'],
-                          widget.refresh,
-                          //widget.setCategory
-                        ).whenComplete(() {
-                          //_formKey.currentState!.reset();
-                          Navigator.pop(context);
-                        });
+                                        //_formKey.currentState?.value['upc'] = value;
+                                        //scannedBarcode = value;
+                                      });
+                                    });
+                                  },
+                                  child: const Text('Scan Barcode')),
+                            ),
+                          )
+                        ],
+                      ),
+                      FormBuilderCheckbox(
+                          name: 'is_organic',
+                          initialValue: false,
+                          title: const Text('Product is Organic')),
 
-                        //print(_formKey.currentState!.value);
-
-                      } else {
-                        //log('Form not valid');
-                      }
-                    },
+                      //_categories
+                      FormBuilderDropdown(
+                        name: 'category',
+                        hint: const Text('Select Category'),
+                        validator: FormBuilderValidators.compose(
+                            [FormBuilderValidators.required(context)]),
+                        //items: [DropdownMenuItem(child: Text('Apples'))],
+                        // items: widget.categories
+                        //     .map((e) => DropdownMenuItem(
+                        //           child: Text(e.toString()),
+                        //           value: e.toString(),
+                        //         ))
+                        //     .toList(),
+                        items: categoryValues
+                            .map((e) => DropdownMenuItem(
+                                value: e['name'],
+                                child: Wrap(
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 40,
+                                        height: 30,
+                                        child: ProductCategoryImage(
+                                            e['name'].toString()),
+                                        // child: FaIcon(
+                                        //   e['icon'] as IconData,
+                                        //   color: e['color'] as Color,
+                                        // ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        e['name'].toString(),
+                                      ),
+                                    ])))
+                            .toList(),
+                        // items: widget.categories
+                        //     .map((e) => DropdownMenuItem(
+                        //         value: e['name'], child: Text(e['name'])))
+                        //     .toList(),
+                      ),
+                    ],
                   ),
                 ),
-                // Wrap(
-                //   children: [FaIcon(categoriesWithImages.entries.firstWhere((element) => element == )['icon'] as IconData)],
-                // )
-              ]),
-            ],
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Expanded(
+                    child: ElevatedButton(
+                        child: const Text('Cancel'),
+                        style: ElevatedButton.styleFrom(primary: Colors.grey),
+                        onPressed: () => Navigator.pop(context)),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: ElevatedButton(
+                      child: const Text('Submit'),
+                      onPressed: () {
+                        _formKey.currentState?.save();
+                        if (_formKey.currentState!.validate()) {
+                          addProduct(
+                            _formKey.currentState!.value['category'],
+                            _formKey.currentState!.value['name'],
+                            _formKey.currentState!.value['upc'],
+                            _formKey.currentState!.value['is_organic'],
+                            widget.refresh,
+                            //widget.setCategory
+                          ).whenComplete(() {
+                            //_formKey.currentState!.reset();
+                            Navigator.pop(context);
+                          });
+
+                          //print(_formKey.currentState!.value);
+
+                        } else {
+                          //log('Form not valid');
+                        }
+                      },
+                    ),
+                  ),
+                  // Wrap(
+                  //   children: [FaIcon(categoriesWithImages.entries.firstWhere((element) => element == )['icon'] as IconData)],
+                  // )
+                ]),
+              ],
+            ),
           ),
         ),
       ),
